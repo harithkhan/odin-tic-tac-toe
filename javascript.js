@@ -8,13 +8,13 @@ const gameBoard = (function(){
     - - - - - 
     ${gameBoardArr[6]} | ${gameBoardArr[7]} | ${gameBoardArr[8]}`};
 
-    const playRound = function(position, marker) {
+    const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
         consoleBoard();
         console.log(consoleBoard());
     };
 
-    return { gameBoardArr, consoleBoard, playRound };
+    return { gameBoardArr, consoleBoard, markBoard };
 })();
 
 console.log(gameBoard.consoleBoard());
@@ -32,4 +32,6 @@ const TTTPlayers = function(playerOne = "Player One", playerTwo = "Player Two") 
 // Initialize Players
 [TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]} , { "Player 2":TTTPlayers()["Player 2"] }];
 
-console.log(TTTPlayerOne);
+gameBoard.markBoard(2, TTTPlayerOne["Player 1"]["marker"]);
+gameBoard.markBoard(4, TTTPlayerTwo["Player 2"]["marker"]);
+console.log(gameBoard.gameBoardArr);
