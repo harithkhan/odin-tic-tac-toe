@@ -1,6 +1,6 @@
 // Gameboard Module
 const gameBoard = (function(){
-    let gameBoardArr = ["", "", "", "", "", "", "", "", ""];
+    let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
     let consoleBoard = function() {
         return `    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
     - - - - - 
@@ -28,13 +28,3 @@ const players = function(playerOne = "Player One", playerTwo = "Player Two") {
         "Player 2": { "name": playerTwo, "marker": playerTwoMarker } 
     };
 };
-
-gameBoard.playRound(0, players()["Player 1"]["marker"]);
-gameBoard.playRound(1, players()["Player 1"]["marker"]);
-gameBoard.playRound(2, players()["Player 1"]["marker"]);
-gameBoard.playRound(3, players()["Player 1"]["marker"]);
-gameBoard.playRound(4, players()["Player 1"]["marker"]);
-gameBoard.playRound(5, players()["Player 1"]["marker"]);
-gameBoard.playRound(6, players()["Player 1"]["marker"]);
-gameBoard.playRound(7, players()["Player 1"]["marker"]);
-gameBoard.playRound(8, players()["Player 1"]["marker"]);
