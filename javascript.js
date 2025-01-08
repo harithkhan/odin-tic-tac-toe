@@ -20,7 +20,7 @@ const gameBoard = (function(){
 console.log(gameBoard.consoleBoard());
 
 // Players Factory
-const players = function(playerOne = "Player One", playerTwo = "Player Two") {
+const TTTPlayers = function(playerOne = "Player One", playerTwo = "Player Two") {
     const playerOneMarker = "X";
     const playerTwoMarker = "O";
     return { 
@@ -30,4 +30,6 @@ const players = function(playerOne = "Player One", playerTwo = "Player Two") {
 };
 
 // Initialize Players
-[playerOne, playerTwo] = [{ "Player 1": players()["Player 1"]} , { "Player 2": players()["Player 2"] }];
+[TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]} , { "Player 2":TTTPlayers()["Player 2"] }];
+
+console.log(TTTPlayerOne);
