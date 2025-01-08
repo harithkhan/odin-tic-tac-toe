@@ -28,3 +28,6 @@ const players = function(playerOne = "Player One", playerTwo = "Player Two") {
         "Player 2": { "name": playerTwo, "marker": playerTwoMarker } 
     };
 };
+
+// Initialize Players
+[playerOne, playerTwo] = [{ "Player 1": players()["Player 1"]} , { "Player 2": players()["Player 2"] }];
