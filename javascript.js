@@ -16,8 +16,12 @@ console.log(gameBoard.consoleBoard);
 const players = function(playerOne = "Player One", playerTwo = "Player Two") {
     const playerOneMarker = "X";
     const playerTwoMarker = "O";
-    return [
-        { "player": playerOne, "marker": playerOneMarker},
-        { "player": playerTwo, "marker": playerTwoMarker }
-    ];
+    return { 
+        "Player 1": {"name": playerOne, "marker": playerOneMarker}, 
+        "Player 2": { "name": playerTwo, "marker": playerTwoMarker } 
+    };
 };
+
+console.log(players());
+
+// gameBoard.gameBoardArr[0] = players()
