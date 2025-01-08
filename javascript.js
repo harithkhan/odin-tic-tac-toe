@@ -14,5 +14,10 @@ console.log(gameBoard.consoleBoard);
 
 // Players Factory
 const players = function(playerOne = "Player One", playerTwo = "Player Two") {
-    return { playerOne, playerTwo };
+    const playerOneMarker = "X";
+    const playerTwoMarker = "O";
+    return [
+        { "player": playerOne, "marker": playerOneMarker},
+        { "player": playerTwo, "marker": playerTwoMarker }
+    ];
 };
