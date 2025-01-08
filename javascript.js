@@ -11,3 +11,8 @@ const gameBoard = (function(){
 })();
 
 console.log(gameBoard.consoleBoard);
+
+// Players Factory
+const players = function(playerOne = "Player One", playerTwo = "Player Two") {
+    return { playerOne, playerTwo };
+};
