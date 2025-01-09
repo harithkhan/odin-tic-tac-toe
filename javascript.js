@@ -54,7 +54,7 @@ const startTTTGame = function() {
         };
     };
 
-    // Initialize turn and gameOver status
+    // Initialize turn, turn number and gameOver status
     let turn = "playerOne";
     let turnNumber = 1;
     let gameOver = false;
