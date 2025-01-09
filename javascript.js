@@ -92,7 +92,7 @@ const startTTTGame = function() {
             };
             turn = "playerOne";
         } else if (turnNumber > 9) {
-            turnNumber = 0;
+            turnNumber = 1;
             gameOver = true;
             console.log(gameBoard.consoleBoard());
             console.log("Game over! It's a draw.");
