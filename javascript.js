@@ -11,7 +11,6 @@ const gameBoard = (function() {
     const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
         consoleBoard();
-        // console.log(consoleBoard());
     };
 
     return { gameBoardArr, consoleBoard, markBoard };
@@ -57,16 +56,18 @@ const startTTTGame = function() {
 
     // Initialize turn and gameOver status
     let turn = "playerOne";
+    let turnNumber = 1;
     let gameOver = false;
     console.log("Game Starts!");
 
     function playTurn() {
-        if (turn === "playerOne") {
+        if (turn === "playerOne" && turnNumber <= 9) {
             console.log("Player 1's turn.");
             console.log(gameBoard.consoleBoard());
             const playerMark = prompt("Player 1: please enter board number where you would like to place your turn");
             gameBoard.markBoard(playerMark, TTTPlayerOne["Player 1"]["marker"]);
             console.log(`Player 1 marked box ${playerMark}.`);
+            turnNumber++;
             for (let winCondition of Object.values(win())) {
                 if (winCondition) {
                     gameOver = true;
@@ -75,12 +76,13 @@ const startTTTGame = function() {
                 };
             };
             turn = "playerTwo";
-        } else if (turn === "playerTwo") {
+        } else if (turn === "playerTwo" && turnNumber <= 9) {
             console.log("Player 2's turn.");
             console.log(gameBoard.consoleBoard());
             const playerMark = prompt("Player 2: please enter board number where you would like to place your turn");
             gameBoard.markBoard(playerMark, TTTPlayerTwo["Player 2"]["marker"]);
             console.log(`Player 2 marked box ${playerMark}.`);
+            turnNumber++;
             for (let winCondition of Object.values(win())) {
                 if (winCondition) {
                     gameOver = true;
@@ -89,7 +91,12 @@ const startTTTGame = function() {
                 };
             };
             turn = "playerOne";
-        };
+        } else if (turnNumber > 9) {
+            turnNumber = 0;
+            gameOver = true;
+            console.log(gameBoard.consoleBoard());
+            console.log("Game over! It's a draw.");
+        }
     };
     while (!gameOver) {
         playTurn();
