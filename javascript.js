@@ -1,5 +1,5 @@
 // Gameboard Module
-const gameBoard = (function(){
+const gameBoard = (function() {
     let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
     let consoleBoard = function() {
         return `    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
@@ -11,13 +11,11 @@ const gameBoard = (function(){
     const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
         consoleBoard();
-        console.log(consoleBoard());
+        // console.log(consoleBoard());
     };
 
     return { gameBoardArr, consoleBoard, markBoard };
 })();
-
-console.log(gameBoard.consoleBoard());
 
 // Players Factory
 const TTTPlayers = function(playerOne = "Player One", playerTwo = "Player Two") {
@@ -32,6 +30,31 @@ const TTTPlayers = function(playerOne = "Player One", playerTwo = "Player Two") 
 // Initialize Players
 [TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]} , { "Player 2":TTTPlayers()["Player 2"] }];
 
-gameBoard.markBoard(2, TTTPlayerOne["Player 1"]["marker"]);
-gameBoard.markBoard(4, TTTPlayerTwo["Player 2"]["marker"]);
-console.log(gameBoard.gameBoardArr);
+// Start Game Factory
+const startTTTGame = function() {
+    let turn = "playerOne";
+    let gameOver = false;
+    console.log("Game Starts!")
+    function playTurn() {
+        if (turn === "playerOne") {
+            console.log("Player 1's turn.");
+            console.log(gameBoard.consoleBoard());
+            const playerMark = prompt("Player 1: please enter board number where you would like to place your turn");
+            gameBoard.markBoard(playerMark, TTTPlayerOne["Player 1"]["marker"]);
+            console.log(`Player 1 marked box ${playerMark}.`);
+            turn = "playerTwo";
+        } else if (turn === "playerTwo") {
+            console.log("Player 2's turn.");
+            console.log(gameBoard.consoleBoard());
+            const playerMark = prompt("Player 2: please enter board number where you would like to place your turn");
+            gameBoard.markBoard(playerMark, TTTPlayerTwo["Player 2"]["marker"]);
+            console.log(`Player 2 marked box ${playerMark}.`);
+            turn = "playerOne";
+        };
+    };
+    playTurn();
+    playTurn();
+    playTurn();
+};
+
+startTTTGame();
