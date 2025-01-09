@@ -6,7 +6,8 @@ const gameBoard = (function() {
     - - - - - 
     ${gameBoardArr[3]} | ${gameBoardArr[4]} | ${gameBoardArr[5]}
     - - - - - 
-    ${gameBoardArr[6]} | ${gameBoardArr[7]} | ${gameBoardArr[8]}`};
+    ${gameBoardArr[6]} | ${gameBoardArr[7]} | ${gameBoardArr[8]}`
+    };
 
     const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
@@ -17,7 +18,7 @@ const gameBoard = (function() {
 })();
 
 // Players Factory
-const TTTPlayers = function(playerOne = "Player One", playerTwo = "Player Two") {
+const TTTPlayers = function(playerOne = "Player 1", playerTwo = "Player 1") {
     const playerOneMarker = "X";
     const playerTwoMarker = "O";
     return { 
@@ -29,11 +30,11 @@ const TTTPlayers = function(playerOne = "Player One", playerTwo = "Player Two") 
 // Initialize Players
 [TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]} , { "Player 2":TTTPlayers()["Player 2"] }];
 
-// Start Game Factory
-const startTTTGame = function() {
+// Start Game Module
+const startTTTGame = (function() {
 
     // Win Logic
-    const win = function () {
+    const win = function() {
         return {
             1: (gameBoard.gameBoardArr[0] === "X" && gameBoard.gameBoardArr[1] === "X" && gameBoard.gameBoardArr[2] === "X"),
             2: (gameBoard.gameBoardArr[3] === "X" && gameBoard.gameBoardArr[4] === "X" && gameBoard.gameBoardArr[5] === "X"),
@@ -55,52 +56,61 @@ const startTTTGame = function() {
     };
 
     // Initialize turn, turn number and gameOver status
-    let turn = "playerOne";
+    let turn = "Player 1";
     let turnNumber = 1;
     let gameOver = false;
-    console.log("Game Starts!");
 
-    function playTurn() {
-        if (turn === "playerOne" && turnNumber <= 9) {
-            console.log("Player 1's turn.");
+    // Initialize game display on turn 1
+    if (turnNumber === 1) {
+        console.log(`Game Starts! It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
+        console.log(gameBoard.consoleBoard());
+    };
+
+    const playTurn = function(position) {
+        if (turn === "Player 1" && turnNumber < 9) {
+            gameBoard.markBoard(position, TTTPlayerOne["Player 1"]["marker"]);
+            console.log(`Player 1 marked box ${position}.`);
             console.log(gameBoard.consoleBoard());
-            const playerMark = prompt("Player 1: please enter board number where you would like to place your turn");
-            gameBoard.markBoard(playerMark, TTTPlayerOne["Player 1"]["marker"]);
-            console.log(`Player 1 marked box ${playerMark}.`);
-            turnNumber++;
+            ++turnNumber;
             for (let winCondition of Object.values(win())) {
                 if (winCondition) {
                     gameOver = true;
-                    console.log(gameBoard.consoleBoard());
                     console.log("Player 1 has won!");
+                    return;
                 };
             };
-            turn = "playerTwo";
-        } else if (turn === "playerTwo" && turnNumber <= 9) {
-            console.log("Player 2's turn.");
+            if (gameOver === false) {
+                turn = "Player 2";
+                console.log(`It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
+            };
+            
+            
+        } else if (turn === "Player 2" && turnNumber < 9) {
+            gameBoard.markBoard(position, TTTPlayerTwo["Player 2"]["marker"]);
+            console.log(`Player 2 marked box ${position}.`);
             console.log(gameBoard.consoleBoard());
-            const playerMark = prompt("Player 2: please enter board number where you would like to place your turn");
-            gameBoard.markBoard(playerMark, TTTPlayerTwo["Player 2"]["marker"]);
-            console.log(`Player 2 marked box ${playerMark}.`);
-            turnNumber++;
+            ++turnNumber;
             for (let winCondition of Object.values(win())) {
                 if (winCondition) {
                     gameOver = true;
-                    console.log(gameBoard.consoleBoard());
                     console.log("Player 2 has won!");
+                    return;
                 };
             };
-            turn = "playerOne";
-        } else if (turnNumber > 9) {
+            if (gameOver === false) {
+                turn = "Player 1";
+                console.log(`It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
+            };
+            
+        } else if (turnNumber >= 9) {
             turnNumber = 1;
             gameOver = true;
             console.log(gameBoard.consoleBoard());
             console.log("Game over! It's a draw.");
-        }
+        };
+        console.log(turnNumber);
     };
-    while (!gameOver) {
-        playTurn();
-    };
-};
+    return { win, turn, turnNumber, gameOver, playTurn };
+})();
 
-startTTTGame(); // Initialize game
+startTTTGame;
