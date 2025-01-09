@@ -84,7 +84,6 @@ const startTTTGame = (function() {
                 console.log(`It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
             };
             
-            
         } else if (turn === "Player 2" && turnNumber < 9) {
             gameBoard.markBoard(position, TTTPlayerTwo["Player 2"]["marker"]);
             console.log(`Player 2 marked box ${position}.`);
@@ -108,7 +107,6 @@ const startTTTGame = (function() {
             console.log(gameBoard.consoleBoard());
             console.log("Game over! It's a draw.");
         };
-        console.log(turnNumber);
     };
     return { win, turn, turnNumber, gameOver, playTurn };
 })();
