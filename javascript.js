@@ -18,17 +18,17 @@ const gameBoard = (function() {
 })();
 
 // Players Factory
-const TTTPlayers = function(playerOne = "Player 1", playerTwo = "Player 1") {
+const TTTPlayers = function(playerOne = "Player 1", playerTwo = "Player 2") {
     const playerOneMarker = "X";
     const playerTwoMarker = "O";
     return { 
-        "Player 1": {"name": playerOne, "marker": playerOneMarker}, 
+        "Player 1": { "name": playerOne, "marker": playerOneMarker }, 
         "Player 2": { "name": playerTwo, "marker": playerTwoMarker } 
     };
 };
 
 // Initialize Players
-[TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]} , { "Player 2":TTTPlayers()["Player 2"] }];
+[TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]}, { "Player 2":TTTPlayers()["Player 2"] }];
 
 // Start Game Module
 const startTTTGame = (function() {
