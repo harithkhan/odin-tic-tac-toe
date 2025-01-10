@@ -126,7 +126,7 @@ const displayControllerTTT = (function() {
     
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
-    const startButton = document.querySelector(".start-game-button");
+    const gameStateDisplay = document.querySelector(".game-state-display");
 
     const handleStartClick = function(event) {
         event.preventDefault();
@@ -143,8 +143,8 @@ const displayControllerTTT = (function() {
         } else if (formObject["Player 2"] !== "" && formObject["Player 1"] === "") {
             playersTTT.renamePlayerTwo(formObject["Player 2"]);
         };
-        console.log(playersTTT.getPlayerOne());
-        console.log(playersTTT.getPlayerTwo());
+        gameControllerTTT.startGame();
+        gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`
         initialDialog.close();
     };
 
