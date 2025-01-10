@@ -1,7 +1,7 @@
 // Gameboard Module
 const gameBoard = (function() {
     let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Array with placeholder numbers for easy testing in console
-    const showConsoleBoard = function() { // To help display the board in the console 
+    const showConsoleBoard = function() { // Function to display the board in the console 
         console.log(`    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
     - - - - - 
     ${gameBoardArr[3]} | ${gameBoardArr[4]} | ${gameBoardArr[5]}
@@ -11,7 +11,7 @@ const gameBoard = (function() {
     };    
     const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
-        consoleBoard();
+        showConsoleBoard();
     };
 
     return { gameBoardArr, showConsoleBoard, markBoard };
@@ -43,7 +43,7 @@ const gameControllerTTT = (function() {
         // Reset game board
         gameBoard.gameBoardArr.splice(0, gameBoard.gameBoardArr.length, "0", "1", "2", "3", "4", "5", "6", "7", "8");
         console.log(`Game Starts! It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
-        console.log(gameBoard.consoleBoard());
+        console.log(gameBoard.showConsoleBoard());
     };
 
     const playRound = function(position) {
@@ -53,7 +53,7 @@ const gameControllerTTT = (function() {
             gameBoard.markBoard(position, players.playerOne.marker);
             ++gameState.turnNumber;
             console.log(`${players.playerOne.name} marked box ${position}.`);
-            console.log(gameBoard.consoleBoard());
+            console.log(gameBoard.showConsoleBoard());
             checkForWin();
             switchTurn();
         
@@ -62,14 +62,14 @@ const gameControllerTTT = (function() {
             gameBoard.markBoard(position, players.playerTwo.marker);
             ++gameState.turnNumber;
             console.log(`${players.playerTwo.name} marked box ${position}.`);
-            console.log(gameBoard.consoleBoard());
+            console.log(gameBoard.showConsoleBoard());
             checkForWin();
             switchTurn();
 
         // Execute if draw   
         } else if (gameState.turnNumber >= 9) {
             gameOver();
-            console.log(gameBoard.consoleBoard());
+            console.log(gameBoard.showConsoleBoard());
             console.log("Game over! It's a draw. type gameControllerTTT.startGame() to restart.");
         };
     };
