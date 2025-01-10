@@ -31,42 +31,37 @@ const playersTTT = (function() {
 // Game Controller Module
 const gameControllerTTT = (function() {
 
-    const players = {
-        "playerOne": createTTTPlayer("Player 1", "X"),
-        "playerTwo": createTTTPlayer("Player 2", "O")
-    };
-
     const gameState = {
-        "playerTurn": players.playerOne,
+        "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
         "isGameOver": false
     };
 
     const startGame = function() {
-        gameState.playerTurn = players.playerOne;
+        gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
         gameState.isGameOver = false;
         gameBoard.resetBoard();
-        console.log(`Game Starts! It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        console.log(`Game Starts! It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
     };
 
     const playRound = function(position) {
 
         // Execute if player one's turn 
-        if (gameState.playerTurn === players.playerOne && gameState.turnNumber < 9 && gameState.isGameOver === false) { 
-            gameBoard.markBoard(position, players.playerOne.marker);
+        if (gameState.playerTurn === playersTTT.getPlayerOne() && gameState.turnNumber < 9 && gameState.isGameOver === false) { 
+            gameBoard.markBoard(position, playersTTT.getPlayerOne().marker);
             ++gameState.turnNumber;
-            console.log(`${players.playerOne.name} marked box ${position}.`);
+            console.log(`${playersTTT.getPlayerOne().name} marked box ${position}.`);
             console.log(gameBoard.showConsoleBoard());
             checkForWin();
             switchTurn();
         
         // Execute if player two's turn
-        } else if (gameState.playerTurn === players.playerTwo && gameState.turnNumber < 9 && gameState.isGameOver === false) {
-            gameBoard.markBoard(position, players.playerTwo.marker);
+        } else if (gameState.playerTurn === playersTTT.getPlayerTwo() && gameState.turnNumber < 9 && gameState.isGameOver === false) {
+            gameBoard.markBoard(position, playersTTT.getPlayerTwo().marker);
             ++gameState.turnNumber;
-            console.log(`${players.playerTwo.name} marked box ${position}.`);
+            console.log(`${playersTTT.getPlayerTwo().name} marked box ${position}.`);
             console.log(gameBoard.showConsoleBoard());
             checkForWin();
             switchTurn();
@@ -75,21 +70,21 @@ const gameControllerTTT = (function() {
         } else if (gameState.turnNumber >= 9) {
             gameOver();
             console.log(gameBoard.showConsoleBoard());
-            console.log("Game over! It's a draw. type gameControllerTTT.startGame() to restart.");
+            console.log("Game over! It's a draw. Type gameControllerTTT.startGame() to restart.");
         };
     };
 
     const switchTurn = function() {
 
         // Switch to player 2 after player 1 plays
-        if (gameState.isGameOver === false && gameState.playerTurn === players.playerOne) { 
-            gameState.playerTurn = players.playerTwo;
-            console.log(`It is ${players.playerTwo.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        if (gameState.isGameOver === false && gameState.playerTurn === playersTTT.getPlayerOne()) { 
+            gameState.playerTurn = playersTTT.getPlayerTwo();
+            console.log(`It is ${playersTTT.getPlayerTwo().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         
         // Switch to player 1 after player 2 plays
-        } else if (gameState.isGameOver === false && gameState.playerTurn === players.playerTwo) { 
-            gameState.playerTurn = players.playerOne;
-            console.log(`It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        } else if (gameState.isGameOver === false && gameState.playerTurn === playersTTT.getPlayerTwo()) { 
+            gameState.playerTurn = playersTTT.getPlayerOne();
+            console.log(`It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         };
     };
 
@@ -123,5 +118,5 @@ const gameControllerTTT = (function() {
         gameBoard.resetBoard();
     };
 
-    return { players, startGame, playRound };
+    return { startGame, playRound };
 })();
