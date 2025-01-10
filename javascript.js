@@ -128,12 +128,22 @@ const displayControllerTTT = (function() {
         event.preventDefault();
         const formData = new FormData(gameForm);
         const formObject = Object.fromEntries(formData.entries());
-        console.log(formObject);
-        playersTTT.renamePlayerOne(formObject["player-1"]);
-        playersTTT.renamePlayerTwo(formObject["player-2"]);
+        // Rename both players if both fields filled
+        if (formObject["Player 1"] !== "" && formObject["Player 2"] !== "") {
+            playersTTT.renamePlayerOne(formObject["Player 1"]);
+            playersTTT.renamePlayerTwo(formObject["Player 2"]);
+        // Only rename Player 1 if Player 1 input field is filled and Player 2 input field is left empty
+        } else if (formObject["Player 1"] !== "" && formObject["Player 2"] === "") {
+            playersTTT.renamePlayerOne(formObject["Player 1"]);
+        // Only rename Player 2 if Player 2 input field is filled and Player 2 input field is left empty
+        } else if (formObject["Player 2"] !== "" && formObject["Player 1"] === "") {
+            playersTTT.renamePlayerTwo(formObject["Player 2"]);
+        };
+        console.log(playersTTT.getPlayerOne());
+        console.log(playersTTT.getPlayerTwo());
         initialDialog.close();
     };
-    
+
     return { handleStartClick };
 })();
 
