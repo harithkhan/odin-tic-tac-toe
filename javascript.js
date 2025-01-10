@@ -22,88 +22,101 @@ const createTTTPlayer = function(name, marker) {
     return { name, marker };
 };
 
-// Initialize Players
-[TTTPlayerOne, TTTPlayerTwo] = [{ "Player 1": TTTPlayers()["Player 1"]}, { "Player 2":TTTPlayers()["Player 2"] }];
+// Game Controller Module
+const gameControllerTTT = (function() {
 
-// Start Game Module
-const startTTTGame = (function() {
-
-    // Win Logic
-    const win = function() {
-        return {
-            1: (gameBoard.gameBoardArr[0] === "X" && gameBoard.gameBoardArr[1] === "X" && gameBoard.gameBoardArr[2] === "X"),
-            2: (gameBoard.gameBoardArr[3] === "X" && gameBoard.gameBoardArr[4] === "X" && gameBoard.gameBoardArr[5] === "X"),
-            3: (gameBoard.gameBoardArr[6] === "X" && gameBoard.gameBoardArr[7] === "X" && gameBoard.gameBoardArr[8] === "X"),
-            4: (gameBoard.gameBoardArr[0] === "X" && gameBoard.gameBoardArr[3] === "X" && gameBoard.gameBoardArr[6] === "X"),
-            5: (gameBoard.gameBoardArr[1] === "X" && gameBoard.gameBoardArr[4] === "X" && gameBoard.gameBoardArr[7] === "X"),
-            6: (gameBoard.gameBoardArr[2] === "X" && gameBoard.gameBoardArr[5] === "X" && gameBoard.gameBoardArr[8] === "X"),
-            7: (gameBoard.gameBoardArr[0] === "X" && gameBoard.gameBoardArr[4] === "X" && gameBoard.gameBoardArr[8] === "X"),
-            8: (gameBoard.gameBoardArr[2] === "X" && gameBoard.gameBoardArr[4] === "X" && gameBoard.gameBoardArr[6] === "X"),
-            9: (gameBoard.gameBoardArr[0] === "X" && gameBoard.gameBoardArr[1] === "X" && gameBoard.gameBoardArr[2] === "X"),
-            10: (gameBoard.gameBoardArr[3] === "O" && gameBoard.gameBoardArr[4] === "O" && gameBoard.gameBoardArr[5] === "O"),
-            11: (gameBoard.gameBoardArr[6] === "O" && gameBoard.gameBoardArr[7] === "O" && gameBoard.gameBoardArr[8] === "O"),
-            12: (gameBoard.gameBoardArr[0] === "O" && gameBoard.gameBoardArr[3] === "O" && gameBoard.gameBoardArr[6] === "O"),
-            13: (gameBoard.gameBoardArr[1] === "O" && gameBoard.gameBoardArr[4] === "O" && gameBoard.gameBoardArr[7] === "O"),
-            14: (gameBoard.gameBoardArr[2] === "O" && gameBoard.gameBoardArr[5] === "O" && gameBoard.gameBoardArr[8] === "O"),
-            15: (gameBoard.gameBoardArr[0] === "O" && gameBoard.gameBoardArr[4] === "O" && gameBoard.gameBoardArr[8] === "O"),
-            16: (gameBoard.gameBoardArr[2] === "O" && gameBoard.gameBoardArr[4] === "O" && gameBoard.gameBoardArr[6] === "O")
-        };
+    const players = {
+        "playerOne": createTTTPlayer("Player 1", "X"),
+        "playerTwo": createTTTPlayer("Player 2", "O")
     };
 
-    // Initialize turn, turn number and gameOver status
-    let turn = "Player 1";
-    let turnNumber = 1;
-    let gameOver = false;
+    const gameState = {
+        "playerTurn": players.playerOne,
+        "turnNumber": 1,
+        "isGameOver": false
+    };
 
-    // Initialize game display on turn 1
-    if (turnNumber === 1) {
-        console.log(`Game Starts! It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
+    const startGame = function() {
+        gameState.playerTurn = players.playerOne;
+        gameState.turnNumber = 1;
+        gameState.isGameOver = false;
+        console.log(`Game Starts! It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.consoleBoard());
     };
 
-    const playTurn = function(position) {
-        if (turn === "Player 1" && turnNumber < 9) {
-            gameBoard.markBoard(position, TTTPlayerOne["Player 1"]["marker"]);
-            console.log(`Player 1 marked box ${position}.`);
+    const playRound = function(position) {
+
+        // Execute if player one's turn 
+        if (gameState.playerTurn === players.playerOne && gameState.turnNumber < 9 && gameState.isGameOver === false) { 
+            gameBoard.markBoard(position, players.playerOne.marker);
+            ++gameState.turnNumber;
+            console.log(`${players.playerOne.name} marked box ${position}.`);
             console.log(gameBoard.consoleBoard());
-            ++turnNumber;
-            for (let winCondition of Object.values(win())) {
-                if (winCondition) {
-                    gameOver = true;
-                    console.log("Player 1 has won!");
-                    return;
-                };
-            };
-            if (gameOver === false) {
-                turn = "Player 2";
-                console.log(`It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
-            };
-            
-        } else if (turn === "Player 2" && turnNumber < 9) {
-            gameBoard.markBoard(position, TTTPlayerTwo["Player 2"]["marker"]);
-            console.log(`Player 2 marked box ${position}.`);
+            checkForWin();
+            switchTurn();
+        
+        // Execute if player two's turn
+        } else if (gameState.playerTurn === players.playerTwo && gameState.turnNumber < 9 && gameState.isGameOver === false) {
+            gameBoard.markBoard(position, players.playerTwo.marker);
+            ++gameState.turnNumber;
+            console.log(`${players.playerTwo.name} marked box ${position}.`);
             console.log(gameBoard.consoleBoard());
-            ++turnNumber;
-            for (let winCondition of Object.values(win())) {
-                if (winCondition) {
-                    gameOver = true;
-                    console.log("Player 2 has won!");
-                    return;
-                };
-            };
-            if (gameOver === false) {
-                turn = "Player 1";
-                console.log(`It is ${turn}'s turn, type startTTTGame.playTurn(insert position) to place your marker.`);
-            };
-            
-        } else if (turnNumber >= 9) {
-            turnNumber = 1;
-            gameOver = true;
+            checkForWin();
+            switchTurn();
+
+        // Execute if draw   
+        } else if (gameState.turnNumber >= 9) {
+            gameOver();
             console.log(gameBoard.consoleBoard());
-            console.log("Game over! It's a draw.");
+            console.log("Game over! It's a draw. type gameControllerTTT.startGame() to restart.");
         };
     };
-    return { win, turn, turnNumber, gameOver, playTurn };
-})();
 
-startTTTGame;
+    const switchTurn = function() {
+
+        // Switch to player 2 after player 1 plays
+        if (gameState.isGameOver === false && gameState.playerTurn === players.playerOne) { 
+            gameState.playerTurn = players.playerTwo;
+            console.log(`It is ${players.playerTwo.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        
+        // Switch to player 1 after player 2 plays
+        } else if (gameState.isGameOver === false && gameState.playerTurn === players.playerTwo) { 
+            gameState.playerTurn = players.playerOne;
+            console.log(`It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        };
+    };
+
+    const winConditions = {
+        1: [0, 1, 2], // Top row
+        2: [3, 4, 5], // Middle row
+        3: [6, 7, 8], // Bottom row
+        4: [0, 3, 6], // Left column
+        5: [1, 4, 7], // Middle column
+        6: [2, 5, 8], // Right column
+        7: [0, 4, 8], // Diagonal top-left to bottom-right
+        8: [2, 4, 6] // Diagonal top-right to bottom-left
+    };
+    
+    const checkForWin = function() {
+        for (let winCondition of Object.values(winConditions)) {
+            const [a, b, c] = winCondition;
+            if (
+                gameBoard.gameBoardArr[a] === gameState.playerTurn.marker &&
+                gameBoard.gameBoardArr[b] === gameState.playerTurn.marker &&
+                gameBoard.gameBoardArr[c] === gameState.playerTurn.marker
+            ) {
+                gameOver();
+                console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
+            };
+        };
+    };
+
+    const gameOver = function() {
+        gameState.turnNumber = 1;
+        gameState.playerTurn = players.playerOne;
+        gameState.isGameOver = true;
+        gameBoard.gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Reset Gameboard
+    };
+
+    return { players, startGame, playRound };
+})();
