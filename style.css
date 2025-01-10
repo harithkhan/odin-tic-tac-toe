@@ -57,13 +57,22 @@ header {
 }
 
 .start-game-form {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
+  gap: 2rem;
   background-color: white;
-  min-width: 70rem;
-  min-height: 40rem;
+  min-width: 50rem;
+  min-height: 30rem;
   border: 0.5rem solid black;
   justify-self: center;
-  align-self: center;
+  place-items: center;
   margin-top: 2rem;
+}
+
+.enter-player-name-container {
+  display: flex;
+  gap: 1rem;
 }
 
 main {
