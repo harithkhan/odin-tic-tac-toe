@@ -40,6 +40,8 @@ const gameControllerTTT = (function() {
         gameState.playerTurn = players.playerOne;
         gameState.turnNumber = 1;
         gameState.isGameOver = false;
+        // Reset game board
+        gameBoard.gameBoardArr.splice(0, gameBoard.gameBoardArr.length, "0", "1", "2", "3", "4", "5", "6", "7", "8");
         console.log(`Game Starts! It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.consoleBoard());
     };
@@ -112,10 +114,9 @@ const gameControllerTTT = (function() {
     };
 
     const gameOver = function() {
-        gameState.turnNumber = 1;
-        gameState.playerTurn = players.playerOne;
         gameState.isGameOver = true;
-        gameBoard.gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Reset Gameboard
+        // Reset Gameboard
+        gameBoard.gameBoardArr.splice(0, gameBoard.gameBoardArr.length, "0", "1", "2", "3", "4", "5", "6", "7", "8");
     };
 
     return { players, startGame, playRound };
