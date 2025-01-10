@@ -120,3 +120,24 @@ const gameControllerTTT = (function() {
 
     return { startGame, playRound };
 })();
+
+// Display Controller Module
+const displayControllerTTT = (function() {
+    
+    const handleStartClick = function(event) {
+        event.preventDefault();
+        const formData = new FormData(gameForm);
+        const formObject = Object.fromEntries(formData.entries());
+        console.log(formObject);
+        playersTTT.renamePlayerOne(formObject["player-1"]);
+        playersTTT.renamePlayerTwo(formObject["player-2"]);
+        initialDialog.close();
+    };
+    
+    return { handleStartClick };
+})();
+
+const initialDialog = document.querySelector(".start-game-dialog");
+const gameForm = document.querySelector(".start-game-form");
+const startButton = document.querySelector(".start-game-button");
+gameForm.addEventListener("submit", displayControllerTTT.handleStartClick);
