@@ -152,7 +152,7 @@ const displayControllerTTT = (function() {
         gameForm.addEventListener("submit", handleStartClick);
     };
 
-    return { handleStartClick, initEventListener };
+    return { handleStartClick, initEventListeners };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners)
