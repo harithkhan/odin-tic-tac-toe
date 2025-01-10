@@ -124,6 +124,10 @@ const gameControllerTTT = (function() {
 // Display Controller Module
 const displayControllerTTT = (function() {
     
+    const initialDialog = document.querySelector(".start-game-dialog");
+    const gameForm = document.querySelector(".start-game-form");
+    const startButton = document.querySelector(".start-game-button");
+
     const handleStartClick = function(event) {
         event.preventDefault();
         const formData = new FormData(gameForm);
@@ -144,10 +148,11 @@ const displayControllerTTT = (function() {
         initialDialog.close();
     };
 
-    return { handleStartClick };
+    const initEventListeners = function() {
+        gameForm.addEventListener("submit", handleStartClick);
+    };
+
+    return { handleStartClick, initEventListener };
 })();
 
-const initialDialog = document.querySelector(".start-game-dialog");
-const gameForm = document.querySelector(".start-game-form");
-const startButton = document.querySelector(".start-game-button");
-gameForm.addEventListener("submit", displayControllerTTT.handleStartClick);
+document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners)
