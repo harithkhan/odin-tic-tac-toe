@@ -17,10 +17,16 @@ const gameBoard = (function() {
     return { getGameBoardArr, showConsoleBoard, markBoard, resetBoard };
 })();
 
-// Players Factory
-const createTTTPlayer = function(name, marker) {
-    return { name, marker };
-};
+// Players Module
+const playersTTT = (function() {
+    const playerOne = { "name": "Player 1", "marker": "X" }; // Initialize Player 1
+    const playerTwo = { "name": "Player 2", "marker": "O" }; // Initialize Player 2
+    const getPlayerOne = () => playerOne;
+    const getPlayerTwo = () => playerTwo;
+    const renamePlayerOne = (newName) => playerOne.name = newName;
+    const renamePlayerTwo = (newName) => playerTwo.name = newName;
+    return { getPlayerOne, getPlayerTwo, renamePlayerOne, renamePlayerTwo};
+})();
 
 // Game Controller Module
 const gameControllerTTT = (function() {
