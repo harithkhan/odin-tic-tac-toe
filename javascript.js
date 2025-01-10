@@ -1,20 +1,20 @@
 // Gameboard Module
 const gameBoard = (function() {
-    let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
-    let consoleBoard = function() {
-        return `    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
+    let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Array with placeholder numbers for easy testing in console
+    const showConsoleBoard = function() { // To help display the board in the console 
+        console.log(`    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
     - - - - - 
     ${gameBoardArr[3]} | ${gameBoardArr[4]} | ${gameBoardArr[5]}
     - - - - - 
     ${gameBoardArr[6]} | ${gameBoardArr[7]} | ${gameBoardArr[8]}`
-    };
-
+        );
+    };    
     const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
         consoleBoard();
     };
 
-    return { gameBoardArr, consoleBoard, markBoard };
+    return { gameBoardArr, showConsoleBoard, markBoard };
 })();
 
 // Players Factory
