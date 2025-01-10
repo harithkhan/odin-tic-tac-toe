@@ -1,6 +1,7 @@
 // Gameboard Module
 const gameBoard = (function() {
     let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Array with placeholder numbers for easy testing in console
+    const getGameBoardArr = () => gameBoardArr;
     const showConsoleBoard = function() { // Function to display the board in the console 
         console.log(`    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
     - - - - - 
@@ -11,10 +12,9 @@ const gameBoard = (function() {
     };    
     const markBoard = function(position, marker) {
         gameBoardArr[position] = marker;
-        showConsoleBoard();
     };
-
-    return { gameBoardArr, showConsoleBoard, markBoard };
+    const resetBoard = () => gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+    return { getGameBoardArr, showConsoleBoard, markBoard, resetBoard };
 })();
 
 // Players Factory
@@ -40,8 +40,7 @@ const gameControllerTTT = (function() {
         gameState.playerTurn = players.playerOne;
         gameState.turnNumber = 1;
         gameState.isGameOver = false;
-        // Reset game board
-        gameBoard.gameBoardArr.splice(0, gameBoard.gameBoardArr.length, "0", "1", "2", "3", "4", "5", "6", "7", "8");
+        gameBoard.resetBoard();
         console.log(`Game Starts! It is ${players.playerOne.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
     };
@@ -103,9 +102,9 @@ const gameControllerTTT = (function() {
         for (let winCondition of Object.values(winConditions)) {
             const [a, b, c] = winCondition;
             if (
-                gameBoard.gameBoardArr[a] === gameState.playerTurn.marker &&
-                gameBoard.gameBoardArr[b] === gameState.playerTurn.marker &&
-                gameBoard.gameBoardArr[c] === gameState.playerTurn.marker
+                gameBoard.getGameBoardArr()[a] === gameState.playerTurn.marker &&
+                gameBoard.getGameBoardArr()[b] === gameState.playerTurn.marker &&
+                gameBoard.getGameBoardArr()[c] === gameState.playerTurn.marker
             ) {
                 gameOver();
                 console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
@@ -115,8 +114,7 @@ const gameControllerTTT = (function() {
 
     const gameOver = function() {
         gameState.isGameOver = true;
-        // Reset Gameboard
-        gameBoard.gameBoardArr.splice(0, gameBoard.gameBoardArr.length, "0", "1", "2", "3", "4", "5", "6", "7", "8");
+        gameBoard.resetBoard();
     };
 
     return { players, startGame, playRound };
