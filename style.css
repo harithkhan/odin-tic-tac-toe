@@ -48,8 +48,14 @@ body {
 
 /* Header Styling */
 header {
-  height: 5rem;
+  height: 12rem;
   background-color: var(--background);
+  place-items: center;
+}
+
+header .header-icon {
+  width: 14rem;
+  height: 14rem;
 }
 
 /* Dialog Styling */
