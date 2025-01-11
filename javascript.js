@@ -126,11 +126,13 @@ const gameControllerTTT = (function() {
 // Display Controller Module
 const displayControllerTTT = (function() {
     
-    // General Query Selectors
+    // General Elements Access
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
+    const gameStateDisplayContainer = document.querySelector(".game-state-display-container");
     const gameStateDisplay = document.querySelector(".game-state-display");
     const gameButton = document.querySelectorAll(".game-button");
+    const playAgainButton = document.createElement("button");
 
     const handleStartClick = function(event) {
         event.preventDefault();
@@ -163,16 +165,25 @@ const displayControllerTTT = (function() {
                 gameStateDisplay.textContent = `${playerTurnName}'s Turn`; // Display that it is next player's turn after click
             } else if (gameControllerTTT.getGameState().isGameOver === true) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
+                playAgainButton.className = "play-again-button";
+                playAgainButton.textContent = "Play Again";
+                gameStateDisplayContainer.appendChild(playAgainButton);
             };
         };
     };
 
+    const handlePlayAgainClick = function() {
+        gameControllerTTT.startGame();
+        gameButton.forEach(node => node.textContent = "");
+    }
+
     const initEventListeners = function() {
         gameForm.addEventListener("submit", handleStartClick);
         gameButton.forEach(node => node.addEventListener("click", handleGameButtonClick));
+        playAgainButton.addEventListener("click", handlePlayAgainClick);
     };
 
-    return { handleStartClick, initEventListeners, handleGameButtonClick };
+    return { handleStartClick, initEventListeners, handleGameButtonClick, handlePlayAgainClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners)
