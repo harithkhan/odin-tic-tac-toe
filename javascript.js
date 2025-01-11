@@ -130,10 +130,7 @@ const displayControllerTTT = (function() {
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
     const gameStateDisplay = document.querySelector(".game-state-display");
-
-    // Game Button Query Selectors
     const gameButton = document.querySelectorAll(".game-button");
-    console.log(gameButton);
 
     const handleStartClick = function(event) {
         event.preventDefault();
@@ -158,8 +155,10 @@ const displayControllerTTT = (function() {
     const handleGameButtonClick = function(event) {
         const position = event.target.dataset.position;
         const marker = gameControllerTTT.getGameState().playerTurn.marker;
-        gameControllerTTT.playRound(position);
-        event.target.textContent = marker;
+        if (event.target.textContent === "") {
+            gameControllerTTT.playRound(position);
+            event.target.textContent = marker;
+        };
     };
 
     const initEventListeners = function() {
