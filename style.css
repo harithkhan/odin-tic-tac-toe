@@ -50,6 +50,8 @@ body {
   --very-dark: #d97706;
   --green: #22c55e;
   --dark-green: #16a34a;
+  --blue: #13b4f2;
+  --red: #fe3f2f;
   --main-height: calc(100vh - 15rem);
 }
 
@@ -207,6 +209,7 @@ header .header-icon {
 
 .start-game-button:active {
   animation: bounce 0.3s ease-in-out;
+  background-color: var(--red);
 }
 
 /* Main Body Styling */
@@ -264,6 +267,10 @@ main {
 
 .play-again-button:hover {
   background-color: var(--green);
+}
+
+.play-again-button:active {
+  background-color: var(--red);
 }
 
 /* Footer Styling */
