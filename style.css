@@ -36,8 +36,13 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
-/* Header Styling */
+/* Body Styling */
+body {
+  display: flex;
+  flex-direction: column;
+}
 
+/* Header Styling */
 header {
   height: 5rem;
 }
@@ -78,11 +83,12 @@ header {
 /* Main Body Styling */
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    height: calc(100vh - 10rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  height: calc(100vh - 10rem);
+  overflow-y: auto;
 }
 
 .game-state-display-container {
@@ -91,14 +97,34 @@ main {
 }
 
 .game-container {
-    min-width: 40rem;
-    min-height: 40rem;
-    border: 0.5rem solid black;
-    display: grid;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  min-width: 40rem;
+  min-height: 40rem;
+  border: 0.5rem solid black;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
 /* Footer Styling */
 footer {
   height: 5rem;
+}
+
+.credit {
+  display: flex;
+  gap: 0.3rem;
+}
+
+footer a {
+  text-decoration: none;
+  /* color: var(--light);
+  transition: color 0.3s ease; */
+}
+
+/* footer a:hover {
+  color: var(--dark);
+  } */
+
+.credit img {
+  height: 1.2rem;
+  width: 1.2rem;
 }
