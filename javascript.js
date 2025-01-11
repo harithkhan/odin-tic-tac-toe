@@ -153,9 +153,9 @@ const displayControllerTTT = (function() {
     };
 
     const handleGameButtonClick = function(event) {
-        const position = event.target.dataset.position;
+        const position = event.target.dataset.position; // Targets position data in HTML
         const marker = gameControllerTTT.getGameState().playerTurn.marker;
-        if (event.target.textContent === "") {
+        if (event.target.textContent === "") { // Prevents use from using an already marked position in the game
             gameControllerTTT.playRound(position);
             event.target.textContent = marker;
         };
