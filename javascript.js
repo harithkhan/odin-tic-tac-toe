@@ -175,7 +175,8 @@ const displayControllerTTT = (function() {
     const handlePlayAgainClick = function() {
         gameControllerTTT.startGame();
         gameButton.forEach(node => node.textContent = "");
-    }
+        gameStateDisplayContainer.removeChild(playAgainButton);
+    };
 
     const initEventListeners = function() {
         gameForm.addEventListener("submit", handleStartClick);
