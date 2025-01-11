@@ -141,6 +141,8 @@ const displayControllerTTT = (function() {
     const playAgainButton = document.createElement("button");
     playAgainButton.className = "play-again-button";
     playAgainButton.textContent = "Play Again";
+    const blue = "#13b4f2";
+    const red = "#fe3f2f";
 
     const handleStartClick = function(event) {
         event.preventDefault();
@@ -176,13 +178,13 @@ const displayControllerTTT = (function() {
             && box.dataset.marked === "false"
             && gameControllerTTT.getGameState().isGameOver === false
         ) {
-            box.style.backgroundColor = "#13b4f2";
+            box.style.backgroundColor = blue;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
         } else if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerTwo()
             && box.dataset.marked === "false"
             && gameControllerTTT.getGameState().isGameOver === false
         ) {
-            box.style.backgroundColor = "#fe3f2f";
+            box.style.backgroundColor = red;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
         };
     };
