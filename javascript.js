@@ -159,7 +159,11 @@ const displayControllerTTT = (function() {
             gameControllerTTT.playRound(position);
             event.target.textContent = marker;
             const playerTurnName = gameControllerTTT.getGameState().playerTurn.name;
-            gameStateDisplay.textContent = `${playerTurnName}'s Turn`; // Display that it is next player's turn after click
+            if (gameControllerTTT.getGameState().isGameOver === false) {
+                gameStateDisplay.textContent = `${playerTurnName}'s Turn`; // Display that it is next player's turn after click
+            } else if (gameControllerTTT.getGameState().isGameOver === true) {
+                gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
+            };
         };
     };
 
