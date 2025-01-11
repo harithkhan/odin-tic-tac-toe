@@ -37,6 +37,8 @@ const gameControllerTTT = (function() {
         "isGameOver": false
     };
 
+    const getGameState = () => gameState;
+
     const startGame = function() {
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
@@ -118,15 +120,20 @@ const gameControllerTTT = (function() {
         gameBoard.resetBoard();
     };
 
-    return { startGame, playRound };
+    return { startGame, getGameState, playRound };
 })();
 
 // Display Controller Module
 const displayControllerTTT = (function() {
     
+    // General Query Selectors
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
     const gameStateDisplay = document.querySelector(".game-state-display");
+
+    // Game Button Query Selectors
+    const gameButton = document.querySelectorAll(".game-button");
+    console.log(gameButton);
 
     const handleStartClick = function(event) {
         event.preventDefault();
@@ -148,11 +155,19 @@ const displayControllerTTT = (function() {
         initialDialog.close();
     };
 
-    const initEventListeners = function() {
-        gameForm.addEventListener("submit", handleStartClick);
+    const handleGameButtonClick = function(event) {
+        const position = event.target.dataset.position;
+        const marker = gameControllerTTT.getGameState().playerTurn.marker;
+        gameControllerTTT.playRound(position);
+        event.target.textContent = marker;
     };
 
-    return { handleStartClick, initEventListeners };
+    const initEventListeners = function() {
+        gameForm.addEventListener("submit", handleStartClick);
+        gameButton.forEach(node => node.addEventListener("click", handleGameButtonClick));
+    };
+
+    return { handleStartClick, initEventListeners, handleGameButtonClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners)
