@@ -158,6 +158,8 @@ const displayControllerTTT = (function() {
         if (event.target.textContent === "") { // Prevents use from using an already marked position in the game
             gameControllerTTT.playRound(position);
             event.target.textContent = marker;
+            const playerTurnName = gameControllerTTT.getGameState().playerTurn.name;
+            gameStateDisplay.textContent = `${playerTurnName}'s Turn`; // Display that it is next player's turn after click
         };
     };
 
