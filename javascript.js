@@ -133,6 +133,8 @@ const displayControllerTTT = (function() {
     const gameStateDisplay = document.querySelector(".game-state-display");
     const gameButton = document.querySelectorAll(".game-button");
     const playAgainButton = document.createElement("button");
+    playAgainButton.className = "play-again-button";
+    playAgainButton.textContent = "Play Again";
 
     const handleStartClick = function(event) {
         event.preventDefault();
@@ -165,8 +167,6 @@ const displayControllerTTT = (function() {
                 gameStateDisplay.textContent = `${playerTurnName}'s Turn`; // Display that it is next player's turn after click
             } else if (gameControllerTTT.getGameState().isGameOver === true) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
-                playAgainButton.className = "play-again-button";
-                playAgainButton.textContent = "Play Again";
                 gameStateDisplayContainer.appendChild(playAgainButton);
             };
         };
