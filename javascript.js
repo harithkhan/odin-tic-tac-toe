@@ -152,21 +152,32 @@ const displayControllerTTT = (function() {
             playersTTT.renamePlayerTwo(formObject["Player 2"]);
         };
         gameControllerTTT.startGame();
-        gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`
+        gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
         initialDialog.close();
     };
 
     const handleGameButtonClick = function(event) {
         const position = event.target.dataset.position; // Targets position data in HTML
         const marker = gameControllerTTT.getGameState().playerTurn.marker;
-        if (event.target.textContent === "") { // Prevents use from using an already marked position in the game
+
+        // Allow marking of position if it is unmarked
+        if (event.target.textContent === "") { 
             gameControllerTTT.playRound(position);
             event.target.textContent = marker;
             const playerTurnName = gameControllerTTT.getGameState().playerTurn.name;
+
+            // Display that it is next player's turn after position marked
             if (gameControllerTTT.getGameState().isGameOver === false) {
-                gameStateDisplay.textContent = `${playerTurnName}'s Turn`; // Display that it is next player's turn after click
-            } else if (gameControllerTTT.getGameState().isGameOver === true) {
+                gameStateDisplay.textContent = `${playerTurnName}'s Turn`; 
+            
+            // Display game winner
+            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.getGameState().turnNumber < 9) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
+                gameStateDisplayContainer.appendChild(playAgainButton);
+
+            // Display game draw
+            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.getGameState().turnNumber >= 9) {
+                gameStateDisplay.textContent = `Game Over! It's a draw!`;
                 gameStateDisplayContainer.appendChild(playAgainButton);
             };
         };
@@ -176,6 +187,7 @@ const displayControllerTTT = (function() {
         gameControllerTTT.startGame();
         gameButton.forEach(node => node.textContent = "");
         gameStateDisplayContainer.removeChild(playAgainButton);
+        gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`
     };
 
     const initEventListeners = function() {
