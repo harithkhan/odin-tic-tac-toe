@@ -36,10 +36,14 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
-/* Body Styling */
+/* General Styling */
 body {
   display: flex;
   flex-direction: column;
+}
+
+:root {
+  --background: #fbbf24
 }
 
 /* Header Styling */
