@@ -151,9 +151,17 @@ const displayControllerTTT = (function() {
         } else if (formObject["Player 2"] !== "" && formObject["Player 1"] === "") {
             playersTTT.renamePlayerTwo(formObject["Player 2"]);
         };
+        // Add closing class to dialog
+        initialDialog.classList.add("closing");
+
+        // Close the dialog after the animation ends
+        initialDialog.addEventListener("animationend", () => {
+            initialDialog.classList.remove("closing");
+            initialDialog.close();
+        }, { once: true });
+
         gameControllerTTT.startGame();
         gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
-        initialDialog.close();
     };
 
     const handleGameButtonClick = function(event) {

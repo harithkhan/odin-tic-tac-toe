@@ -17,9 +17,10 @@
     <main>
         <dialog class="start-game-dialog" open>
             <div class="start-game-dialog-container">
-                <form class="start-game-form">
-                    <h2 class="start-game-form-header">Enter Player Names or Start Game</h2>
+                <form class="start-game-form" autocomplete="off">
+                    <h2 class="start-game-form-header">Enter Names or Start</h2>
                     <div class="enter-player-name-container">
+                        <img alt="Icon of X marker" class="x-icon" src="img/x-icon.png">
                         <input 
                         type="text" 
                         id="input-player-1"
@@ -28,7 +29,7 @@
                         value=""
                         placeholder="Player 1"
                         >
-                        <div class="form-text-VS">VS</div>
+                        <img alt="Icon of X marker" class="versus-icon" src="img/versus.png">
                         <input
                         type="text"
                         id="input-player-2"
@@ -37,6 +38,7 @@
                         value=""
                         placeholder="Player 2"
                         >
+                        <img alt="Icon of X marker" class="o-icon" src="img/o-icon.png">
                     </div>
                     <button type="submit" class="start-game-button">Start Game</button>
                 </form>

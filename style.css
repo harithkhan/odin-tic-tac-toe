@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,450;1,450&display=swap');
 /* Reset Stylesheet */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -40,10 +41,15 @@ h1, h2, h3, h4, h5, h6 {
 body {
   display: flex;
   flex-direction: column;
+  font-family: "Rubik", serif;
 }
 
 :root {
   --background: #fbbf24;
+  --dark: #f59e0b;
+  --very-dark: #d97706;
+  --green: #22c55e;
+  --dark-green: #16a34a;
   --main-height: calc(100vh - 15rem);
 }
 
@@ -76,26 +82,127 @@ header .header-icon {
 .start-game-dialog-container {
   height: 100%;
   width: 100%;
-  background-color: white;
   background-color: var(--background);
+}
+
+@keyframes dialogFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.start-game-dialog.closing {
+  animation: dialogFadeOut 1s forwards;
 }
 
 .start-game-form {
   display: flex;
   flex-direction: column;
-  padding: 5rem;
-  gap: 2rem;
-  background-color: var(--background);
-  min-width: 50rem;
+  padding: 1.3rem 2rem 2rem 2rem;
+  gap: 1.5rem;
+  background-color: white;
+  min-width: 40rem;
   min-height: 15rem;
-  border: 0.5rem solid black;
+  border-radius: 32px;
   justify-self: center;
   place-items: center;
+}
+
+.start-game-form-header {
+  font-size: 1.8rem;
 }
 
 .enter-player-name-container {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+
+.x-icon,
+.o-icon {
+  width: 4rem;
+  height: auto;
+}
+
+.player-input-field {
+  height: 2.4rem;
+  padding-left: 0.8rem;
+  width: 15ch;
+  font-family: "Rubik";
+  border-radius: 30px;
+  background-color: var(--very-dark);
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.player-input-field::placeholder {
+  color: white;
+  font-style: italic;
+}
+
+.player-input-field:focus, select:focus {
+  background-color: var(--dark);
+  outline: none;
+}
+
+.player-input-field:hover, select:hover {
+  background-color: var(--dark);
+}
+
+.versus-icon {
+  height: 4rem;
+  width: auto;
+}
+
+@keyframes pulse {
+  0%, 100% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.06);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.start-game-button {
+  font-size: 1.3rem;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--dark-green);
+  color: white;
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 1.5rem;
+  animation: pulse 1s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.start-game-button:hover {
+  background-color: var(--green);
+}
+
+.start-game-button:active {
+  animation: bounce 0.3s ease-in-out;
 }
 
 /* Main Body Styling */
