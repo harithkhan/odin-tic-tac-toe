@@ -173,16 +173,19 @@ header .header-icon {
 
 @keyframes bounce {
   0% {
-    transform: scale(1);
+    transform: translateY(0); 
   }
-  30% {
-    transform: scale(1.2);
+  25% {
+    transform: translateY(-10px);
   }
   50% {
-    transform: scale(0.9);
+    transform: translateY(0); 
+  }
+  75% {
+    transform: translateY(10px); 
   }
   100% {
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -240,6 +243,10 @@ main {
   color: white;
   padding: 0;
   font-size: 4rem;
+}
+
+.game-button:active {
+  animation: bounce 0.3s ease-in-out;
 }
 
 /* Footer Styling */

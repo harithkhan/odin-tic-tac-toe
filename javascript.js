@@ -242,4 +242,4 @@ const displayControllerTTT = (function() {
     return { handleStartClick, initEventListeners, handleGameButtonClick, handlePlayAgainClick };
 })();
 
-document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners)
+document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners);
