@@ -269,6 +269,9 @@ main {
 /* Footer Styling */
 footer {
   height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .credit {
@@ -278,13 +281,13 @@ footer {
 
 footer a {
   text-decoration: none;
-  /* color: var(--light);
-  transition: color 0.3s ease; */
+  color: var(--very-dark);
+  transition: color 0.3s ease; 
 }
 
-/* footer a:hover {
+footer a:hover {
   color: var(--dark);
-  } */
+  }
 
 .credit img {
   height: 1.2rem;
