@@ -174,9 +174,9 @@ const displayControllerTTT = (function() {
     const nextRoundButton = document.createElement("button");
     nextRoundButton.className = "next-round-button";
     nextRoundButton.textContent = "Next Round";
-    const renamePlayersButton = document.createElement("button");
-    renamePlayersButton.className = "rename-players-button";
-    renamePlayersButton.textContent = "Rename Players";
+    const restartButton = document.createElement("button");
+    restartButton.className = "restart-button";
+    restartButton.textContent = "Restart Game";
     const endGameButtonContainer = document.querySelector(".end-game-button-container");
     const blue = "#13b4f2";
     const red = "#fe3f2f";
@@ -259,13 +259,13 @@ const displayControllerTTT = (function() {
                 gameStateDisplay.textContent = `Round Over! ${playerTurnName} Won!`;
                 playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
                 playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
-                endGameButtonContainer.appendChild(renamePlayersButton);
+                endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
 
             // Display game draw if game is over and there is no winner
             } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
-                endGameButtonContainer.appendChild(renamePlayersButton);
+                endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
             };
         };
@@ -275,11 +275,11 @@ const displayControllerTTT = (function() {
         resetBoardDisplay();
         gameControllerTTT.nextRound();
         endGameButtonContainer.removeChild(nextRoundButton);
-        endGameButtonContainer.removeChild(renamePlayersButton);
+        endGameButtonContainer.removeChild(restartButton);
         gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
     };
 
-    const handleRenamePlayersClick = function() {
+    const handleRestartClick = function() {
         const gameFormHeader = document.querySelector(".start-game-form-header");
         gameFormHeader.textContent = "Rename Players or Start Game";
         // Clear form inputs and reset player names to default (player can rename by submitting form)
@@ -291,7 +291,7 @@ const displayControllerTTT = (function() {
         playersTTT.getPlayerTwo().name = "Player 2";
 
         endGameButtonContainer.removeChild(nextRoundButton);
-        endGameButtonContainer.removeChild(renamePlayersButton);
+        endGameButtonContainer.removeChild(restartButton);
         initialDialog.show();
     };
 
@@ -308,10 +308,10 @@ const displayControllerTTT = (function() {
         gameButton.forEach(node => node.addEventListener("mouseleave", handleMouseLeave));
         gameButton.forEach(node => node.addEventListener("click", handleGameButtonClick));
         nextRoundButton.addEventListener("click", handleNextRoundClick);
-        renamePlayersButton.addEventListener("click", handleRenamePlayersClick);
+        restartButton.addEventListener("click", handleRestartClick);
     };
 
-    return { handleStartClick, initEventListeners, handleGameButtonClick, handleNextRoundClick, handleRenamePlayersClick };
+    return { handleStartClick, initEventListeners, handleGameButtonClick, handleNextRoundClick, handleRestartClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners);

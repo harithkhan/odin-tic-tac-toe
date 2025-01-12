@@ -85,7 +85,7 @@ header .header-icon {
 .next-round-button {
   font-size: 1.2rem;
   height: 3rem;
-  width: 12rem;
+  width: 10.8rem;
   border-radius: 30px;
   border: none;
   background-color: var(--dark-green);
@@ -106,7 +106,7 @@ header .header-icon {
   background-color: var(--red);
 }
 
-.rename-players-button {
+.restart-button {
   font-size: 1.2rem;
   height: 3rem;
   border-radius: 30px;
@@ -121,11 +121,11 @@ header .header-icon {
   right: 2rem;
 }
 
-.rename-players-button:hover {
+.restart-button:hover {
   background-color: var(--light-red);
 }
 
-.rename-players-button:active {
+.restart-button:active {
   background-color: var(--green);
 }
 
