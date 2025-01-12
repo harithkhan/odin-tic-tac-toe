@@ -38,7 +38,6 @@ const gameControllerTTT = (function() {
     };
     const getGameState = () => gameState;
 
-    const gameButton = document.querySelectorAll(".game-button");
     const startGame = function() {
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
