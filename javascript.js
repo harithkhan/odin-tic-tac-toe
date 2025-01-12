@@ -56,7 +56,7 @@ const gameControllerTTT = (function() {
     const playRound = function(position) {
 
         // Execute on normal turn
-        if (gameState.turnNumber < 9 && gameState.isGameOver === false) { 
+        if (gameState.turnNumber < 9 && !gameState.isGameOver) { 
             gameBoard.markBoard(position, gameState.playerTurn.marker);
             ++gameState.turnNumber;
             console.log(`${gameState.playerTurn.name} marked box ${position}.`);
@@ -89,12 +89,12 @@ const gameControllerTTT = (function() {
     const switchTurn = function() {
 
         // Switch to player 2 after player 1 plays
-        if (gameState.isGameOver === false && gameState.playerTurn === playersTTT.getPlayerOne()) { 
+        if (!gameState.isGameOver && gameState.playerTurn === playersTTT.getPlayerOne()) { 
             gameState.playerTurn = playersTTT.getPlayerTwo();
             console.log(`It is ${playersTTT.getPlayerTwo().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         
         // Switch to player 1 after player 2 plays
-        } else if (gameState.isGameOver === false && gameState.playerTurn === playersTTT.getPlayerTwo()) { 
+        } else if (!gameState.isGameOver && gameState.playerTurn === playersTTT.getPlayerTwo()) { 
             gameState.playerTurn = playersTTT.getPlayerOne();
             console.log(`It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         };
@@ -176,13 +176,13 @@ const displayControllerTTT = (function() {
         const box = event.target;
         if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerOne()
             && box.dataset.marked === "false"
-            && gameControllerTTT.getGameState().isGameOver === false
+            && !gameControllerTTT.getGameState().isGameOver
         ) {
             box.style.backgroundColor = blue;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
         } else if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerTwo()
             && box.dataset.marked === "false"
-            && gameControllerTTT.getGameState().isGameOver === false
+            && !gameControllerTTT.getGameState().isGameOver
         ) {
             box.style.backgroundColor = red;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
@@ -191,7 +191,7 @@ const displayControllerTTT = (function() {
 
     const handleMouseLeave = function(event) {
         const box = event.target;
-        if (box.textContent !== "" && box.dataset.marked === "false" && gameControllerTTT.getGameState().isGameOver === false) {
+        if (box.textContent !== "" && box.dataset.marked === "false" && !gameControllerTTT.getGameState().isGameOver) {
             box.style.backgroundColor = "white";
             box.textContent = "";
         };
@@ -210,17 +210,17 @@ const displayControllerTTT = (function() {
             event.target.textContent = marker;
 
             // Display that it is next player's turn after position marked
-            if (gameControllerTTT.getGameState().isGameOver === false) {
+            if (!gameControllerTTT.getGameState().isGameOver) {
                 const nextPlayerName = gameControllerTTT.getGameState().playerTurn.name; // Get updated player name
                 gameStateDisplay.textContent = `${nextPlayerName}'s Turn`;
             
             // Display game winner
-            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.checkForWin()) {
+            } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
                 gameStateDisplayContainer.appendChild(playAgainButton);
 
             // Display game draw
-            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.checkForWin() === false) {
+            } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin() === false) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
                 gameStateDisplayContainer.appendChild(playAgainButton);
             };
