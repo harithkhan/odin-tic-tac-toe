@@ -28,7 +28,7 @@ const playersTTT = (function() {
     return { getPlayerOne, getPlayerTwo, renamePlayerOne, renamePlayerTwo};
 })();
 
-// Game Controller Module
+// Game Controller Module - only affects game logic, does not affect display
 const gameControllerTTT = (function() {
 
     const gameState = {
