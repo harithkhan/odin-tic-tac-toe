@@ -131,7 +131,6 @@ const displayControllerTTT = (function() {
     const gameForm = document.querySelector(".start-game-form");
     const endGameButtonContainer = document.querySelector(".end-game-button-container");
     const gameStateDisplay = document.querySelector(".game-state-display");
-    const gameButton = document.querySelectorAll(".game-button");
     const playAgainButton = document.createElement("button");
     const renamePlayersButton = document.createElement("button");
     playAgainButton.className = "play-again-button";
@@ -242,6 +241,7 @@ const displayControllerTTT = (function() {
 
     }
 
+    const gameButton = document.querySelectorAll(".game-button");
     const resetBoardDisplay = function() {
         gameButton.forEach(node => node.style.backgroundColor = "white");
         gameButton.forEach(node => node.textContent = "");
