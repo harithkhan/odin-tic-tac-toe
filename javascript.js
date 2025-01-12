@@ -47,7 +47,7 @@ const gameControllerTTT = (function() {
         gameState.isGameOver = false;
         gameButton.forEach(node => node.style.backgroundColor = "white");
         gameButton.forEach(node => node.textContent = "");
-        gameButton.forEach(node => node.dataset.marked = "false");
+        gameButton.forEach(node => node.dataset.marked = "false"); // Reset game button marked dataset
         gameBoard.resetBoard();
         console.log(`Game Starts! It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
@@ -55,29 +55,34 @@ const gameControllerTTT = (function() {
 
     const playRound = function(position) {
 
-        // Execute if player one's turn 
-        if (gameState.playerTurn === playersTTT.getPlayerOne() && gameState.turnNumber < 9 && gameState.isGameOver === false) { 
-            gameBoard.markBoard(position, playersTTT.getPlayerOne().marker);
+        // Execute on normal turn
+        if (gameState.turnNumber < 9 && gameState.isGameOver === false) { 
+            gameBoard.markBoard(position, gameState.playerTurn.marker);
             ++gameState.turnNumber;
-            console.log(`${playersTTT.getPlayerOne().name} marked box ${position}.`);
+            console.log(`${gameState.playerTurn.name} marked box ${position}.`);
             console.log(gameBoard.showConsoleBoard());
-            checkForWin();
-            switchTurn();
-        
-        // Execute if player two's turn
-        } else if (gameState.playerTurn === playersTTT.getPlayerTwo() && gameState.turnNumber < 9 && gameState.isGameOver === false) {
-            gameBoard.markBoard(position, playersTTT.getPlayerTwo().marker);
-            ++gameState.turnNumber;
-            console.log(`${playersTTT.getPlayerTwo().name} marked box ${position}.`);
-            console.log(gameBoard.showConsoleBoard());
-            checkForWin();
-            switchTurn();
 
-        // Execute if draw   
-        } else if (gameState.turnNumber >= 9) {
-            gameOver();
+            if (checkForWin()) {
+                gameOver();
+                console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
+            } else switchTurn();
+
+        // Execute on the last turn
+        } else if (gameState.turnNumber = 9) {
+            gameBoard.markBoard(position, gameState.playerTurn.marker);
+            console.log(`${gameState.playerTurn.name} marked box ${position}.`);
             console.log(gameBoard.showConsoleBoard());
-            console.log("Game over! It's a draw. Type gameControllerTTT.startGame() to restart.");
+            
+            // Execute on draw
+            if (checkForWin() === false) {
+                gameOver();
+                console.log("Game over! It's a draw. Type gameControllerTTT.startGame() to restart.")
+
+            // Execute on win    
+            } else if (checkForWin()) {
+                gameOver();
+                console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
+            };
         };
     };
 
@@ -114,19 +119,14 @@ const gameControllerTTT = (function() {
                 gameBoard.getGameBoardArr()[b] === gameState.playerTurn.marker &&
                 gameBoard.getGameBoardArr()[c] === gameState.playerTurn.marker
             ) {
-                gameOver();
-                console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
-            };
+                return true;
+            }; 
         };
+        return false;
     };
 
-    const gameOver = function() {
-        gameButton.forEach(node => node.dataset.marked = "false"); // Reset game button marked dataset
-        gameState.isGameOver = true;
-        gameBoard.resetBoard();
-    };
-
-    return { startGame, getGameState, playRound };
+    const gameOver = () => (gameState.isGameOver = true);
+    return { startGame, getGameState, playRound, checkForWin };
 })();
 
 // Display Controller Module
@@ -215,12 +215,12 @@ const displayControllerTTT = (function() {
                 gameStateDisplay.textContent = `${nextPlayerName}'s Turn`;
             
             // Display game winner
-            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.getGameState().turnNumber < 9) {
+            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
                 gameStateDisplayContainer.appendChild(playAgainButton);
 
             // Display game draw
-            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.getGameState().turnNumber >= 9) {
+            } else if (gameControllerTTT.getGameState().isGameOver === true && gameControllerTTT.checkForWin() === false) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
                 gameStateDisplayContainer.appendChild(playAgainButton);
             };
