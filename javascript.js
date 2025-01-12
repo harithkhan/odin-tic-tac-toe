@@ -1,6 +1,6 @@
 // Gameboard Module
 const gameBoard = (function() {
-    let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Array with placeholder numbers for easy testing in console
+    let gameBoardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]; // Array with placeholder numbers for easy position reference
     const getGameBoardArr = () => gameBoardArr;
     const showConsoleBoard = function() { // Function to display the board in the console 
         console.log(`    ${gameBoardArr[0]} | ${gameBoardArr[1]} | ${gameBoardArr[2]}
