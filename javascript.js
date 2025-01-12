@@ -168,15 +168,15 @@ const displayControllerTTT = (function() {
         gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
     };
 
-    const handleMouseEnter = function(event) {
+    const handleMouseEnter = function(event) { // To mark and add bg color to game button when mouse enters button
         const box = event.target;
-        if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerOne()
+        if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerOne() // To add player one's marker upon mouse enter
             && box.dataset.marked === "false"
             && !gameControllerTTT.getGameState().isGameOver
         ) {
             box.style.backgroundColor = blue;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
-        } else if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerTwo()
+        } else if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerTwo() // To add player two's marker upon mouse enter
             && box.dataset.marked === "false"
             && !gameControllerTTT.getGameState().isGameOver
         ) {
@@ -185,7 +185,7 @@ const displayControllerTTT = (function() {
         };
     };
 
-    const handleMouseLeave = function(event) {
+    const handleMouseLeave = function(event) { // To remove marker and bg color from game button when mouse leaves button
         const box = event.target;
         if (box.textContent !== "" && box.dataset.marked === "false" && !gameControllerTTT.getGameState().isGameOver) {
             box.style.backgroundColor = "white";
