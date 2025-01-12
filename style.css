@@ -288,6 +288,36 @@ main {
 }
 
 .game-container {
+  display: flex;
+}
+
+.player-one-info,
+.player-two-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-one-icon,
+.player-two-icon {
+  display: flex;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+.player-one-score,
+.player-two-score {
+  font-size: 1.5rem;
+}
+
+.player-one-score {
+  margin-right: 3rem;
+}
+
+.player-two-score {
+  margin-left: 3rem;
+}
+
+.game-board {
   min-width: 23rem;
   min-height: 23rem;
   display: grid;
