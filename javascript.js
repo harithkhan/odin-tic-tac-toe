@@ -205,18 +205,18 @@ const displayControllerTTT = (function() {
             box.dataset.marked = "true";
             event.target.textContent = marker;
 
-            // Display that it is next player's turn after position marked
+            // Display that it is next player's turn after position marked if game is not over
             if (!gameControllerTTT.getGameState().isGameOver) {
                 const nextPlayerName = gameControllerTTT.getGameState().playerTurn.name; // Get updated player name
                 gameStateDisplay.textContent = `${nextPlayerName}'s Turn`;
             
-            // Display game winner
+            // Display game winner if game is over and there is winner
             } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
                 endGameButtonContainer.appendChild(playAgainButton);
                 endGameButtonContainer.appendChild(renamePlayersButton);
 
-            // Display game draw
+            // Display game draw if game is over and there is no winner
             } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
                 endGameButtonContainer.appendChild(playAgainButton);
