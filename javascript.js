@@ -49,7 +49,7 @@ const gameControllerTTT = (function() {
 
     const playRound = function(position) {
 
-        // Execute on normal turn
+        // Execute on all turns before the last turn (which is turn 9)
         if (gameState.turnNumber < 9 && !gameState.isGameOver) { 
             gameBoard.markBoard(position, gameState.playerTurn.marker);
             ++gameState.turnNumber;
@@ -67,7 +67,7 @@ const gameControllerTTT = (function() {
             console.log(`${gameState.playerTurn.name} marked box ${position}.`);
             console.log(gameBoard.showConsoleBoard());
             
-            // Execute on draw
+            // Execute on draw, since there is no win in the last turn, it is a draw
             if (!checkForWin()) {
                 gameOver();
                 console.log("Game over! It's a draw. Type gameControllerTTT.startGame() to restart.")
