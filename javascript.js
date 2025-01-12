@@ -127,6 +127,7 @@ const gameControllerTTT = (function() {
 const displayControllerTTT = (function() {
     
     // General html references and variables that are used throughout this module
+    const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
     const gameStateDisplay = document.querySelector(".game-state-display");
     const playAgainButton = document.createElement("button");
@@ -155,7 +156,6 @@ const displayControllerTTT = (function() {
             playersTTT.renamePlayerTwo(formObject["Player 2"]);
         };
         // Add closing class to dialog to assist stylesheet selectors for closing animation of dialog when game starts
-        const initialDialog = document.querySelector(".start-game-dialog");
         initialDialog.classList.add("closing");
         // Close the dialog after the animation ends and remove "closing" class
         initialDialog.addEventListener("animationend", () => {
