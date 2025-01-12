@@ -52,6 +52,7 @@ body {
   --dark-green: #16a34a;
   --blue: #13b4f2;
   --red: #fe3f2f;
+  --light-red: #fe6f63;
   --main-height: calc(100vh - 15rem);
 }
 
@@ -74,12 +75,17 @@ header .header-icon {
 
 .end-game-button-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  position: relative;
 }
 
 .play-again-button {
   font-size: 1.2rem;
   height: 3rem;
+  width: 12rem;
   border-radius: 30px;
   border: none;
   background-color: var(--dark-green);
@@ -88,6 +94,8 @@ header .header-icon {
   padding: 0.5rem 1.5rem;
   animation: pulse 1s infinite ease-in-out;
   cursor: pointer;
+  position: relative;
+  right: 2rem;
 }
 
 .play-again-button:hover {
@@ -96,6 +104,29 @@ header .header-icon {
 
 .play-again-button:active {
   background-color: var(--red);
+}
+
+.rename-players-button {
+  font-size: 1.2rem;
+  height: 3rem;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--red);
+  color: white;
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 1.5rem;
+  animation: pulse 1s infinite ease-in-out;
+  cursor: pointer;
+  position: relative;
+  right: 2rem;
+}
+
+.rename-players-button:hover {
+  background-color: var(--light-red);
+}
+
+.rename-players-button:active {
+  background-color: var(--green);
 }
 
 /* Dialog Styling */

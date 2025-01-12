@@ -139,8 +139,11 @@ const displayControllerTTT = (function() {
     const gameStateDisplay = document.querySelector(".game-state-display");
     const gameButton = document.querySelectorAll(".game-button");
     const playAgainButton = document.createElement("button");
+    const renamePlayersButton = document.createElement("button");
     playAgainButton.className = "play-again-button";
     playAgainButton.textContent = "Play Again";
+    renamePlayersButton.className = "rename-players-button";
+    renamePlayersButton.textContent = "Rename Players";
     const blue = "#13b4f2";
     const red = "#fe3f2f";
 
@@ -218,20 +221,30 @@ const displayControllerTTT = (function() {
             } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
                 endGameButtonContainer.appendChild(playAgainButton);
+                endGameButtonContainer.appendChild(renamePlayersButton);
 
             // Display game draw
             } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
                 endGameButtonContainer.appendChild(playAgainButton);
+                endGameButtonContainer.appendChild(renamePlayersButton);
             };
         };
     };
 
     const handlePlayAgainClick = function() {
         gameControllerTTT.startGame();
-        gameStateDisplayContainer.removeChild(playAgainButton);
+        endGameButtonContainer.removeChild(playAgainButton);
+        endGameButtonContainer.removeChild(renamePlayersButton);
         gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`
     };
+
+    const handleRenamePlayersClick = function() {
+        initialDialog.show();
+        endGameButtonContainer.removeChild(playAgainButton);
+        endGameButtonContainer.removeChild(renamePlayersButton);
+
+    }
 
     const initEventListeners = function() {
         gameForm.addEventListener("submit", handleStartClick);
@@ -239,9 +252,10 @@ const displayControllerTTT = (function() {
         gameButton.forEach(node => node.addEventListener("mouseleave", handleMouseLeave));
         gameButton.forEach(node => node.addEventListener("click", handleGameButtonClick));
         playAgainButton.addEventListener("click", handlePlayAgainClick);
+        renamePlayersButton.addEventListener("click", handleRenamePlayersClick);
     };
 
-    return { handleStartClick, initEventListeners, handleGameButtonClick, handlePlayAgainClick };
+    return { handleStartClick, initEventListeners, handleGameButtonClick, handlePlayAgainClick, handleRenamePlayersClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners);
