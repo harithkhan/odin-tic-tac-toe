@@ -34,7 +34,8 @@ const gameControllerTTT = (function() {
     const gameState = {
         "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
-        "isGameOver": false
+        "isGameOver": false,
+        "whoStarts": playersTTT.getPlayerOne() // To allow Player 2 to start next round if user wants to play again. See function playAgain below
     };
     const getGameState = () => gameState;
 
@@ -120,7 +121,30 @@ const gameControllerTTT = (function() {
     };
 
     const gameOver = () => (gameState.isGameOver = true);
-    return { startGame, getGameState, playRound, checkForWin };
+
+    const playAgain = function() {
+        // Switch whoStarts
+        gameState.whoStarts === playersTTT.getPlayerOne() 
+        ? gameState.whoStarts = playersTTT.getPlayerTwo() 
+        :  gameState.whoStarts = playersTTT.getPlayerOne();
+        gameState.playerTurn = gameState.whoStarts;
+        // Switch markers
+        if (playersTTT.getPlayerOne().marker === "X") {
+            playersTTT.getPlayerOne().marker = "O";
+            playersTTT.getPlayerTwo().marker = "X";
+        } else {
+            playersTTT.getPlayerOne().marker = "X";
+            playersTTT.getPlayerTwo().marker = "O";
+        };
+        // Reset game logic
+        gameState.turnNumber = 1;
+        gameState.isGameOver = false;
+        gameBoard.resetBoard();
+        console.log(`Game Starts! It is ${gameState.playerTurn.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        console.log(gameBoard.showConsoleBoard());
+    };
+
+    return { startGame, getGameState, playRound, checkForWin, playAgain };
 })();
 
 // Display Controller Module
@@ -227,10 +251,10 @@ const displayControllerTTT = (function() {
 
     const handlePlayAgainClick = function() {
         resetBoardDisplay();
-        gameControllerTTT.startGame();
+        gameControllerTTT.playAgain();
         endGameButtonContainer.removeChild(playAgainButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
-        gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`
+        gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
     };
 
     const handleRenamePlayersClick = function() {
