@@ -262,9 +262,17 @@ const displayControllerTTT = (function() {
     const handleRenamePlayersClick = function() {
         const gameFormHeader = document.querySelector(".start-game-form-header");
         gameFormHeader.textContent = "Rename Players or Start Game";
-        initialDialog.show();
+        // Clear form inputs and reset player names to default (player can rename by submitting form)
+        const inputFields = document.querySelectorAll(".player-input-field");
+        inputFields.forEach(input => {
+            input.value = "";
+        });
+        playersTTT.getPlayerOne().name = "Player 1";
+        playersTTT.getPlayerTwo().name = "Player 2";
+
         endGameButtonContainer.removeChild(playAgainButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
+        initialDialog.show();
     };
 
     const gameButton = document.querySelectorAll(".game-button");
