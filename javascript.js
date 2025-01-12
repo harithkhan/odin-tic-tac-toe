@@ -141,12 +141,6 @@ const displayControllerTTT = (function() {
     const blue = "#13b4f2";
     const red = "#fe3f2f";
 
-    const resetBoardDisplay = function() {
-        gameButton.forEach(node => node.style.backgroundColor = "white");
-        gameButton.forEach(node => node.textContent = "");
-        gameButton.forEach(node => node.dataset.marked = "false"); // Reset game button element's marked dataset
-    }
-
     const handleStartClick = function(event) {
         event.preventDefault();
         const formData = new FormData(gameForm);
@@ -246,6 +240,12 @@ const displayControllerTTT = (function() {
         endGameButtonContainer.removeChild(playAgainButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
 
+    }
+
+    const resetBoardDisplay = function() {
+        gameButton.forEach(node => node.style.backgroundColor = "white");
+        gameButton.forEach(node => node.textContent = "");
+        gameButton.forEach(node => node.dataset.marked = "false"); // Reset game button element's marked dataset
     }
 
     const initEventListeners = function() {
