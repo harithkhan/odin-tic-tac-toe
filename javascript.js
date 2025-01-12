@@ -126,17 +126,16 @@ const gameControllerTTT = (function() {
 // Display Controller Module
 const displayControllerTTT = (function() {
     
-    // General Elements Access
-    const initialDialog = document.querySelector(".start-game-dialog");
+    // General html references and variables that are used throughout this module
     const gameForm = document.querySelector(".start-game-form");
-    const endGameButtonContainer = document.querySelector(".end-game-button-container");
     const gameStateDisplay = document.querySelector(".game-state-display");
     const playAgainButton = document.createElement("button");
-    const renamePlayersButton = document.createElement("button");
     playAgainButton.className = "play-again-button";
     playAgainButton.textContent = "Play Again";
+    const renamePlayersButton = document.createElement("button");
     renamePlayersButton.className = "rename-players-button";
     renamePlayersButton.textContent = "Rename Players";
+    const endGameButtonContainer = document.querySelector(".end-game-button-container");
     const blue = "#13b4f2";
     const red = "#fe3f2f";
 
@@ -156,6 +155,7 @@ const displayControllerTTT = (function() {
             playersTTT.renamePlayerTwo(formObject["Player 2"]);
         };
         // Add closing class to dialog
+        const initialDialog = document.querySelector(".start-game-dialog");
         initialDialog.classList.add("closing");
 
         // Close the dialog after the animation ends
