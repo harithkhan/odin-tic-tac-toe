@@ -35,7 +35,7 @@ const gameControllerTTT = (function() {
         "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
         "isGameOver": false,
-        "whoStarts": playersTTT.getPlayerOne(), // To allow Player 2 to start next round if user wants to play again. See function playAgain below
+        "whoStarts": playersTTT.getPlayerOne(), // To allow Player 2 to start next round if user wants to play again. See function nextRound below
         "playerOneScore": 0,
         "playerTwoScore": 0
     };
@@ -131,7 +131,7 @@ const gameControllerTTT = (function() {
 
     const gameOver = () => (gameState.isGameOver = true);
 
-    const playAgain = function() {
+    const nextRound = function() {
         // Switch whoStarts
         gameState.whoStarts === playersTTT.getPlayerOne() 
         ? gameState.whoStarts = playersTTT.getPlayerTwo() 
@@ -159,7 +159,7 @@ const gameControllerTTT = (function() {
         console.log(gameBoard.showConsoleBoard());
     };
 
-    return { startGame, getGameState, playRound, checkForWin, playAgain };
+    return { startGame, getGameState, playRound, checkForWin, nextRound };
 })();
 
 // Display Controller Module
@@ -171,9 +171,9 @@ const displayControllerTTT = (function() {
     const gameStateDisplay = document.querySelector(".game-state-display");
     const playerOneInfo = document.querySelector(".player-one-score");
     const playerTwoInfo = document.querySelector(".player-two-score");
-    const playAgainButton = document.createElement("button");
-    playAgainButton.className = "play-again-button";
-    playAgainButton.textContent = "Play Again";
+    const nextRoundButton = document.createElement("button");
+    nextRoundButton.className = "next-round-button";
+    nextRoundButton.textContent = "Next Round";
     const renamePlayersButton = document.createElement("button");
     renamePlayersButton.className = "rename-players-button";
     renamePlayersButton.textContent = "Rename Players";
@@ -256,25 +256,25 @@ const displayControllerTTT = (function() {
             
             // Display game winner and update score displays if game is over and there is winner
             } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
-                gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
+                gameStateDisplay.textContent = `Round Over! ${playerTurnName} Won!`;
                 playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
                 playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
-                endGameButtonContainer.appendChild(playAgainButton);
                 endGameButtonContainer.appendChild(renamePlayersButton);
+                endGameButtonContainer.appendChild(nextRoundButton);
 
             // Display game draw if game is over and there is no winner
             } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
-                endGameButtonContainer.appendChild(playAgainButton);
                 endGameButtonContainer.appendChild(renamePlayersButton);
+                endGameButtonContainer.appendChild(nextRoundButton);
             };
         };
     };
 
-    const handlePlayAgainClick = function() {
+    const handleNextRoundClick = function() {
         resetBoardDisplay();
-        gameControllerTTT.playAgain();
-        endGameButtonContainer.removeChild(playAgainButton);
+        gameControllerTTT.nextRound();
+        endGameButtonContainer.removeChild(nextRoundButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
         gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
     };
@@ -290,7 +290,7 @@ const displayControllerTTT = (function() {
         playersTTT.getPlayerOne().name = "Player 1";
         playersTTT.getPlayerTwo().name = "Player 2";
 
-        endGameButtonContainer.removeChild(playAgainButton);
+        endGameButtonContainer.removeChild(nextRoundButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
         initialDialog.show();
     };
@@ -307,11 +307,11 @@ const displayControllerTTT = (function() {
         gameButton.forEach(node => node.addEventListener("mouseenter", handleMouseEnter));
         gameButton.forEach(node => node.addEventListener("mouseleave", handleMouseLeave));
         gameButton.forEach(node => node.addEventListener("click", handleGameButtonClick));
-        playAgainButton.addEventListener("click", handlePlayAgainClick);
+        nextRoundButton.addEventListener("click", handleNextRoundClick);
         renamePlayersButton.addEventListener("click", handleRenamePlayersClick);
     };
 
-    return { handleStartClick, initEventListeners, handleGameButtonClick, handlePlayAgainClick, handleRenamePlayersClick };
+    return { handleStartClick, initEventListeners, handleGameButtonClick, handleNextRoundClick, handleRenamePlayersClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners);

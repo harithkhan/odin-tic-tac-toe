@@ -82,7 +82,7 @@ header .header-icon {
   position: relative;
 }
 
-.play-again-button {
+.next-round-button {
   font-size: 1.2rem;
   height: 3rem;
   width: 12rem;
@@ -98,11 +98,11 @@ header .header-icon {
   right: 2rem;
 }
 
-.play-again-button:hover {
+.next-round-button:hover {
   background-color: var(--green);
 }
 
-.play-again-button:active {
+.next-round-button:active {
   background-color: var(--red);
 }
 
