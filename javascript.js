@@ -31,16 +31,14 @@ const playersTTT = (function() {
 // Game Controller Module
 const gameControllerTTT = (function() {
 
-    const gameButton = document.querySelectorAll(".game-button");
-
     const gameState = {
         "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
         "isGameOver": false
     };
-
     const getGameState = () => gameState;
 
+    const gameButton = document.querySelectorAll(".game-button");
     const startGame = function() {
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
