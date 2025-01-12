@@ -35,7 +35,9 @@ const gameControllerTTT = (function() {
         "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
         "isGameOver": false,
-        "whoStarts": playersTTT.getPlayerOne() // To allow Player 2 to start next round if user wants to play again. See function playAgain below
+        "whoStarts": playersTTT.getPlayerOne(), // To allow Player 2 to start next round if user wants to play again. See function playAgain below
+        "playerOneScore": 0,
+        "playerTwoScore": 0
     };
     const getGameState = () => gameState;
 
@@ -43,10 +45,13 @@ const gameControllerTTT = (function() {
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
         gameState.isGameOver = false;
+        gameState.whoStarts = playersTTT.getPlayerOne();
+        gameState.playerOneScore = 0;
+        gameState.playerTwoScore = 0;
         playersTTT.getPlayerOne().marker = "X";
         playersTTT.getPlayerTwo().marker = "O";
         gameBoard.resetBoard();
-        console.log(`Game Starts! It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        console.log(`Game Starts! It is ${playersTTT.getPlayerOne().name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
     };
 
@@ -60,8 +65,9 @@ const gameControllerTTT = (function() {
             console.log(gameBoard.showConsoleBoard());
 
             if (checkForWin()) {
+                gameState.playerTurn === playersTTT.getPlayerOne() ? ++gameState.playerOneScore : ++gameState.playerTwoScore;
                 gameOver();
-                console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
+                console.log(`${gameState.playerTurn.name} won the round! Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
             } else switchTurn();
 
         // Execute on the last turn
@@ -73,12 +79,13 @@ const gameControllerTTT = (function() {
             // Execute on draw, since there is no win in the last turn, it is a draw
             if (!checkForWin()) {
                 gameOver();
-                console.log("Game over! It's a draw. Type gameControllerTTT.startGame() to restart.")
+                console.log(`It's a draw. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
 
             // Execute on win    
             } else if (checkForWin()) {
+                gameState.playerTurn === playersTTT.getPlayerOne() ? ++gameState.playerOneScore : ++gameState.playerTwoScore;
                 gameOver();
-                console.log(`Game Over! ${gameState.playerTurn.name} has won!`);
+                console.log(`${gameState.playerTurn.name} won the round! Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
             };
         };
     };
@@ -148,7 +155,7 @@ const gameControllerTTT = (function() {
         gameState.turnNumber = 1;
         gameState.isGameOver = false;
         gameBoard.resetBoard();
-        console.log(`Game Starts! It is ${gameState.playerTurn.name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
+        console.log(`Round Starts! It is ${playersTTT.getPlayerOne().name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
     };
 
