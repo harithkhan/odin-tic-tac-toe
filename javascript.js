@@ -74,7 +74,7 @@ const gameControllerTTT = (function() {
             console.log(gameBoard.showConsoleBoard());
             
             // Execute on draw
-            if (checkForWin() === false) {
+            if (!checkForWin()) {
                 gameOver();
                 console.log("Game over! It's a draw. Type gameControllerTTT.startGame() to restart.")
 
@@ -220,7 +220,7 @@ const displayControllerTTT = (function() {
                 gameStateDisplayContainer.appendChild(playAgainButton);
 
             // Display game draw
-            } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin() === false) {
+            } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
                 gameStateDisplayContainer.appendChild(playAgainButton);
             };
