@@ -260,6 +260,8 @@ const displayControllerTTT = (function() {
     };
 
     const handleRenamePlayersClick = function() {
+        const gameFormHeader = document.querySelector(".start-game-form-header");
+        gameFormHeader.textContent = "Rename Players or Start Game";
         initialDialog.show();
         endGameButtonContainer.removeChild(playAgainButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
