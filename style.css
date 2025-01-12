@@ -72,6 +72,32 @@ header .header-icon {
   height: 14rem;
 }
 
+.end-game-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.play-again-button {
+  font-size: 1.2rem;
+  height: 3rem;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--dark-green);
+  color: white;
+  transition: background-color 0.3s ease;
+  padding: 0.5rem 1.5rem;
+  animation: pulse 1s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.play-again-button:hover {
+  background-color: var(--green);
+}
+
+.play-again-button:active {
+  background-color: var(--red);
+}
+
 /* Dialog Styling */
 
 .start-game-dialog {
@@ -251,26 +277,6 @@ main {
 
 .game-button:active {
   animation: bounce 0.3s ease-in-out;
-}
-
-.play-again-button {
-  font-size: 1.2rem;
-  border-radius: 30px;
-  border: none;
-  background-color: var(--dark-green);
-  color: white;
-  transition: background-color 0.3s ease;
-  padding: 0.5rem 1.5rem;
-  animation: pulse 1s infinite ease-in-out;
-  cursor: pointer;
-}
-
-.play-again-button:hover {
-  background-color: var(--green);
-}
-
-.play-again-button:active {
-  background-color: var(--red);
 }
 
 /* Footer Styling */

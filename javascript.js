@@ -135,7 +135,7 @@ const displayControllerTTT = (function() {
     // General Elements Access
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
-    const gameStateDisplayContainer = document.querySelector(".game-state-display-container");
+    const endGameButtonContainer = document.querySelector(".end-game-button-container");
     const gameStateDisplay = document.querySelector(".game-state-display");
     const gameButton = document.querySelectorAll(".game-button");
     const playAgainButton = document.createElement("button");
@@ -217,12 +217,12 @@ const displayControllerTTT = (function() {
             // Display game winner
             } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
-                gameStateDisplayContainer.appendChild(playAgainButton);
+                endGameButtonContainer.appendChild(playAgainButton);
 
             // Display game draw
             } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! It's a draw!`;
-                gameStateDisplayContainer.appendChild(playAgainButton);
+                endGameButtonContainer.appendChild(playAgainButton);
             };
         };
     };
