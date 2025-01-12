@@ -43,9 +43,6 @@ const gameControllerTTT = (function() {
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
         gameState.isGameOver = false;
-        gameButton.forEach(node => node.style.backgroundColor = "white");
-        gameButton.forEach(node => node.textContent = "");
-        gameButton.forEach(node => node.dataset.marked = "false"); // Reset game button marked dataset
         gameBoard.resetBoard();
         console.log(`Game Starts! It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
@@ -145,6 +142,12 @@ const displayControllerTTT = (function() {
     const blue = "#13b4f2";
     const red = "#fe3f2f";
 
+    const resetBoardDisplay = function() {
+        gameButton.forEach(node => node.style.backgroundColor = "white");
+        gameButton.forEach(node => node.textContent = "");
+        gameButton.forEach(node => node.dataset.marked = "false"); // Reset game button element's marked dataset
+    }
+
     const handleStartClick = function(event) {
         event.preventDefault();
         const formData = new FormData(gameForm);
@@ -169,6 +172,7 @@ const displayControllerTTT = (function() {
             initialDialog.close();
         }, { once: true });
 
+        resetBoardDisplay();
         gameControllerTTT.startGame();
         gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
     };
@@ -231,6 +235,7 @@ const displayControllerTTT = (function() {
     };
 
     const handlePlayAgainClick = function() {
+        resetBoardDisplay();
         gameControllerTTT.startGame();
         endGameButtonContainer.removeChild(playAgainButton);
         endGameButtonContainer.removeChild(renamePlayersButton);
