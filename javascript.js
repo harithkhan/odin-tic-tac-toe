@@ -203,9 +203,9 @@ const displayControllerTTT = (function() {
             initialDialog.classList.remove("closing");
             initialDialog.close();
         }, { once: true });
-        // Update names on player info
-        playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: 0`;
-        playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: 0`;
+        // Update names and score on player info
+        playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
+        playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
 
         resetBoardDisplay();
         gameControllerTTT.startGame();
@@ -254,9 +254,11 @@ const displayControllerTTT = (function() {
                 const nextPlayerName = gameControllerTTT.getGameState().playerTurn.name; // Get updated player name
                 gameStateDisplay.textContent = `${nextPlayerName}'s Turn`;
             
-            // Display game winner if game is over and there is winner
+            // Display game winner and update score displays if game is over and there is winner
             } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Game Over! ${playerTurnName} Won!`;
+                playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
+                playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
                 endGameButtonContainer.appendChild(playAgainButton);
                 endGameButtonContainer.appendChild(renamePlayersButton);
 
