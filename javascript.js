@@ -150,15 +150,14 @@ const displayControllerTTT = (function() {
         // Only rename Player 1 if Player 1 input field is filled and Player 2 input field is left empty
         } else if (formObject["Player 1"] !== "" && formObject["Player 2"] === "") {
             playersTTT.renamePlayerOne(formObject["Player 1"]);
-        // Only rename Player 2 if Player 2 input field is filled and Player 2 input field is left empty
+        // Only rename Player 2 if Player 2 input field is filled and Player 1 input field is left empty
         } else if (formObject["Player 2"] !== "" && formObject["Player 1"] === "") {
             playersTTT.renamePlayerTwo(formObject["Player 2"]);
         };
-        // Add closing class to dialog
+        // Add closing class to dialog to assist stylesheet selectors for closing animation of dialog when game starts
         const initialDialog = document.querySelector(".start-game-dialog");
         initialDialog.classList.add("closing");
-
-        // Close the dialog after the animation ends
+        // Close the dialog after the animation ends and remove "closing" class
         initialDialog.addEventListener("animationend", () => {
             initialDialog.classList.remove("closing");
             initialDialog.close();
