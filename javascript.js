@@ -162,6 +162,8 @@ const displayControllerTTT = (function() {
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
     const gameStateDisplay = document.querySelector(".game-state-display");
+    const playerOneInfo = document.querySelector(".player-one-score");
+    const playerTwoInfo = document.querySelector(".player-two-score");
     const playAgainButton = document.createElement("button");
     playAgainButton.className = "play-again-button";
     playAgainButton.textContent = "Play Again";
@@ -194,6 +196,9 @@ const displayControllerTTT = (function() {
             initialDialog.classList.remove("closing");
             initialDialog.close();
         }, { once: true });
+        // Update names on player info
+        playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: 0`;
+        playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: 0`;
 
         resetBoardDisplay();
         gameControllerTTT.startGame();
