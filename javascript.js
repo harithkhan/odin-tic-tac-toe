@@ -163,6 +163,8 @@ const displayControllerTTT = (function() {
     const initialDialog = document.querySelector(".start-game-dialog");
     const gameForm = document.querySelector(".start-game-form");
     const gameStateDisplay = document.querySelector(".game-state-display");
+    const playerOneIcon = document.querySelector(".player-one-icon");
+    const playerTwoIcon = document.querySelector(".player-two-icon");
     const playerOneInfo = document.querySelector(".player-one-score");
     const playerTwoInfo = document.querySelector(".player-two-score");
     const nextRoundButton = document.createElement("button");
@@ -200,9 +202,11 @@ const displayControllerTTT = (function() {
         resetBoardDisplay();
         gameControllerTTT.startGame();
         gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
-        // Update names and score on player info
+        // Update names, score and icons in player info
         playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
         playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
+        playerOneIcon.textContent = "X";
+        playerTwoIcon.textContent = "O";
     };
 
     const handleMouseEnter = function(event) { // To mark and add bg color to game button when mouse enters button
@@ -282,8 +286,6 @@ const displayControllerTTT = (function() {
     
     // Function to update and animate player marker icons
     const updatePlayerIcon = function() {
-        const playerOneIcon = document.querySelector(".player-one-icon");
-        const playerTwoIcon = document.querySelector(".player-two-icon");
         if (playersTTT.getPlayerOne().marker === "X") {
             playerOneIcon.textContent = "O"
             playerTwoIcon.textContent = "X";
