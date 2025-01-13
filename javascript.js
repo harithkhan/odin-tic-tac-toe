@@ -38,7 +38,8 @@ const gameControllerTTT = (function() {
         "isRoundOver": false,
         "whoStarts": playersTTT.getPlayerOne(), // To allow Player 2 to start next round if user wants to play again. See function nextRound below
         "playerOneScore": 0,
-        "playerTwoScore": 0
+        "playerTwoScore": 0,
+        "isGameOver": false
     };
     const getGameState = () => gameState;
 
@@ -50,6 +51,7 @@ const gameControllerTTT = (function() {
         gameState.whoStarts = playersTTT.getPlayerOne();
         gameState.playerOneScore = 0;
         gameState.playerTwoScore = 0;
+        gameState.isGameOver = false;
         playersTTT.getPlayerOne().marker = "X";
         playersTTT.getPlayerTwo().marker = "O";
         gameBoard.resetBoard();
@@ -70,6 +72,7 @@ const gameControllerTTT = (function() {
                 gameState.playerTurn === playersTTT.getPlayerOne() ? ++gameState.playerOneScore : ++gameState.playerTwoScore;
                 roundOver();
                 console.log(`${gameState.playerTurn.name} won the round! Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
+                checkGameOver();
             } else switchTurn();
 
         // Execute on the last turn
@@ -88,6 +91,7 @@ const gameControllerTTT = (function() {
                 gameState.playerTurn === playersTTT.getPlayerOne() ? ++gameState.playerOneScore : ++gameState.playerTwoScore;
                 roundOver();
                 console.log(`${gameState.playerTurn.name} won the round! Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
+                checkGameOver();
             };
         };
     };
@@ -154,6 +158,13 @@ const gameControllerTTT = (function() {
         gameBoard.resetBoard();
         console.log(`Round ${gameState.roundNumber} starts! It is ${gameState.playerTurn.name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
+    };
+
+    const checkGameOver = function() {
+        if (gameState.playerOneScore === 3 || gameState.playerTwoScore === 3) {
+            console.log(`Game Over! ${gameState.playerTurn.name} has 3 points and won the game!`);
+            return true;
+        };
     };
 
     return { startGame, getGameState, playRound, checkForWin, nextRound };
