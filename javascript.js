@@ -272,7 +272,6 @@ const displayControllerTTT = (function() {
 
     // Function to update and animate score
     const updateScoreDisplay = (playerOneScore, playerTwoScore) => {
-
         if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerOne()) {
             playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${playerOneScore}`; // Update score display
             playerOneInfo.classList.add("player-score-update"); // Add animation class
@@ -283,7 +282,6 @@ const displayControllerTTT = (function() {
             playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${playerTwoScore}`;
             playerTwoInfo.classList.add("player-score-update");
             setTimeout(() => {
-                playerOneInfo.classList.remove("player-score-update");
                 playerTwoInfo.classList.remove("player-score-update");
                 }, 300); // Matches the CSS transition duration
         };
