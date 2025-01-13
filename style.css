@@ -295,6 +295,7 @@ main {
 .player-two-info {
   display: flex;
   flex-direction: column;
+  min-width: 10rem;
 }
 
 .player-one-icon,
