@@ -262,7 +262,7 @@ const displayControllerTTT = (function() {
 
             // Display game draw if game is over and there is no winner
             } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
-                gameStateDisplay.textContent = `Game Over! It's a draw!`;
+                gameStateDisplay.textContent = `Round Over! It's a draw!`;
                 endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
             };
