@@ -279,11 +279,12 @@ const displayControllerTTT = (function() {
                 }, 300); // Matches the CSS transition duration
         };
     };
+    
+
 
     const handleNextRoundClick = function() {
         endGameButtonContainer.removeChild(nextRoundButton);
         endGameButtonContainer.removeChild(restartButton);
-        gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
         // Switch player markers display
         const playerOneIcon = document.querySelector(".player-one-icon");
         const playerTwoIcon = document.querySelector(".player-two-icon");
@@ -296,6 +297,7 @@ const displayControllerTTT = (function() {
         };
         resetBoardDisplay();
         gameControllerTTT.nextRound();
+        gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
     };
 
     const handleRestartClick = function() {
