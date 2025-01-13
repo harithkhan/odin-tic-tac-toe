@@ -162,6 +162,7 @@ const gameControllerTTT = (function() {
 
     const checkGameOver = function() {
         if (gameState.playerOneScore === 3 || gameState.playerTwoScore === 3) {
+            gameState.isGameOver = true;
             console.log(`Game Over! ${gameState.playerTurn.name} has 3 points and won the game!`);
             return true;
         };
