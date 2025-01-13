@@ -203,13 +203,12 @@ const displayControllerTTT = (function() {
             initialDialog.classList.remove("closing");
             initialDialog.close();
         }, { once: true });
-        // Update names and score on player info
-        playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
-        playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
-
         resetBoardDisplay();
         gameControllerTTT.startGame();
         gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
+        // Update names and score on player info
+        playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
+        playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
     };
 
     const handleMouseEnter = function(event) { // To mark and add bg color to game button when mouse enters button
