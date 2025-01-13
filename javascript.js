@@ -215,7 +215,7 @@ const displayControllerTTT = (function() {
         }, { once: true });
         resetBoardDisplay();
         gameControllerTTT.startGame();
-        gameStateDisplay.textContent = `Round ${gameControllerTTT.getGameState().roundNumber}, ${playersTTT.getPlayerOne().name} Starts`;
+        gameStateDisplay.textContent = `First to 3 wins! Round ${gameControllerTTT.getGameState().roundNumber}, ${playersTTT.getPlayerOne().name} Starts`;
         // Update names, score and icons in player info
         playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
         playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
