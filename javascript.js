@@ -164,7 +164,6 @@ const gameControllerTTT = (function() {
         if (gameState.playerOneScore === 3 || gameState.playerTwoScore === 3) {
             gameState.isGameOver = true;
             console.log(`Game Over! ${gameState.playerTurn.name} has 3 points and won the game!`);
-            return true;
         };
     };
 
@@ -261,19 +260,25 @@ const displayControllerTTT = (function() {
             box.dataset.marked = "true";
             event.target.textContent = marker;
 
-            // Display that it is next player's turn after position marked if game is not over
+            // Display that it is next player's turn after position marked if round is not over
             if (!gameControllerTTT.getGameState().isRoundOver) {
                 const nextPlayerName = gameControllerTTT.getGameState().playerTurn.name; // Get updated player name
                 gameStateDisplay.textContent = `${nextPlayerName}'s Turn`;
             
-            // Display game winner and update score displays if game is over and there is winner
-            } else if (gameControllerTTT.getGameState().isRoundOver && gameControllerTTT.checkForWin()) {
+            // Display roundwinner and update score displays if round is over but there is no game winner, and append buttons for new round or game
+            } else if (gameControllerTTT.getGameState().isRoundOver && gameControllerTTT.checkForWin() && !gameControllerTTT.getGameState().isGameOver) {
                 gameStateDisplay.textContent = `Round Over! ${playerTurnName} Won!`;
                 displayControllerTTT.updateScoreDisplay(gameControllerTTT.getGameState().playerOneScore, gameControllerTTT.getGameState().playerTwoScore); // See updateScoreDisplay below
                 endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
+            
+            // Display game winner and update score displays if game is over, and append restart game button
+            } else if (gameControllerTTT.getGameState().isGameOver) {
+                gameStateDisplay.textContent = `Game Over! ${gameControllerTTT.getGameState().playerTurn.name} has 3 points and won the game`;
+                displayControllerTTT.updateScoreDisplay(gameControllerTTT.getGameState().playerOneScore, gameControllerTTT.getGameState().playerTwoScore); // See updateScoreDisplay below
+                endGameButtonContainer.appendChild(restartButton);
 
-            // Display game draw if game is over and there is no winner
+            // Display draw if round is over and there is no winner, and append buttons for new round or game
             } else if (gameControllerTTT.getGameState().isRoundOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Round Over! It's a draw!`;
                 endGameButtonContainer.appendChild(restartButton);
@@ -336,9 +341,14 @@ const displayControllerTTT = (function() {
         playersTTT.getPlayerOne().name = "Player 1";
         playersTTT.getPlayerTwo().name = "Player 2";
 
-        endGameButtonContainer.removeChild(nextRoundButton);
-        endGameButtonContainer.removeChild(restartButton);
-        initialDialog.show();
+        if (!gameControllerTTT.getGameState().isGameOver) {
+            endGameButtonContainer.removeChild(nextRoundButton);
+            endGameButtonContainer.removeChild(restartButton);
+            initialDialog.show();
+        } else {
+            endGameButtonContainer.removeChild(restartButton);
+            initialDialog.show();
+        };
     };
 
     const gameButton = document.querySelectorAll(".game-button");
