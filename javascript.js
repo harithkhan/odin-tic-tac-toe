@@ -138,18 +138,12 @@ const gameControllerTTT = (function() {
         :  gameState.whoStarts = playersTTT.getPlayerOne();
         gameState.playerTurn = gameState.whoStarts;
         // Switch markers
-        const playerOneIcon = document.querySelector(".player-one-icon");
-        const playerTwoIcon = document.querySelector(".player-two-icon");
         if (playersTTT.getPlayerOne().marker === "X") {
             playersTTT.getPlayerOne().marker = "O";
-            playerOneIcon.textContent = "O"
             playersTTT.getPlayerTwo().marker = "X";
-            playerTwoIcon.textContent = "X";
         } else {
             playersTTT.getPlayerOne().marker = "X";
-            playerOneIcon.textContent = "X";
             playersTTT.getPlayerTwo().marker = "O";
-            playerTwoIcon.textContent = "O";
         };
         // Reset game logic
         gameState.turnNumber = 1;
@@ -287,11 +281,21 @@ const displayControllerTTT = (function() {
     };
 
     const handleNextRoundClick = function() {
-        resetBoardDisplay();
-        gameControllerTTT.nextRound();
         endGameButtonContainer.removeChild(nextRoundButton);
         endGameButtonContainer.removeChild(restartButton);
         gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
+        // Switch player markers display
+        const playerOneIcon = document.querySelector(".player-one-icon");
+        const playerTwoIcon = document.querySelector(".player-two-icon");
+        if (playersTTT.getPlayerOne().marker === "X") {
+            playerOneIcon.textContent = "O"
+            playerTwoIcon.textContent = "X";
+        } else {
+            playerOneIcon.textContent = "X";
+            playerTwoIcon.textContent = "O";
+        };
+        resetBoardDisplay();
+        gameControllerTTT.nextRound();
     };
 
     const handleRestartClick = function() {
