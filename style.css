@@ -302,6 +302,7 @@ main {
   display: flex;
   justify-content: center;
   font-size: 5rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .player-one-score,
@@ -311,6 +312,11 @@ main {
 }
 
 .player-score-update {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+.player-icon-update {
   transform: scale(1.2);
   opacity: 0.8;
 }

@@ -276,16 +276,12 @@ const displayControllerTTT = (function() {
             playerTwoInfo.classList.add("player-score-update");
             setTimeout(() => {
                 playerTwoInfo.classList.remove("player-score-update");
-                }, 300); // Matches the CSS transition duration
+                }, 300); 
         };
     };
     
-
-
-    const handleNextRoundClick = function() {
-        endGameButtonContainer.removeChild(nextRoundButton);
-        endGameButtonContainer.removeChild(restartButton);
-        // Switch player markers display
+    // Function to update and animate player marker icons
+    const updatePlayerIcon = function() {
         const playerOneIcon = document.querySelector(".player-one-icon");
         const playerTwoIcon = document.querySelector(".player-two-icon");
         if (playersTTT.getPlayerOne().marker === "X") {
@@ -295,6 +291,18 @@ const displayControllerTTT = (function() {
             playerOneIcon.textContent = "X";
             playerTwoIcon.textContent = "O";
         };
+        playerOneIcon.classList.add("player-icon-update");
+        playerTwoIcon.classList.add("player-icon-update");
+        setTimeout(() => {
+            playerOneIcon.classList.remove("player-icon-update");
+            playerTwoIcon.classList.remove("player-icon-update");
+        }, 300);
+    };
+
+    const handleNextRoundClick = function() {
+        endGameButtonContainer.removeChild(nextRoundButton);
+        endGameButtonContainer.removeChild(restartButton);
+        updatePlayerIcon();
         resetBoardDisplay();
         gameControllerTTT.nextRound();
         gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
@@ -332,7 +340,7 @@ const displayControllerTTT = (function() {
         restartButton.addEventListener("click", handleRestartClick);
     };
 
-    return { handleStartClick, initEventListeners, handleGameButtonClick, updateScoreDisplay, handleNextRoundClick, handleRestartClick };
+    return { handleStartClick, initEventListeners, handleGameButtonClick, updateScoreDisplay, updatePlayerIcon, handleNextRoundClick, handleRestartClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners);
