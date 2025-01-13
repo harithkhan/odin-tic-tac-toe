@@ -317,7 +317,8 @@ main {
 
 .player-one-score,
 .player-two-score {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
