@@ -257,8 +257,7 @@ const displayControllerTTT = (function() {
             // Display game winner and update score displays if game is over and there is winner
             } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Round Over! ${playerTurnName} Won!`;
-                playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
-                playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
+                displayControllerTTT.updateScoreDisplay(gameControllerTTT.getGameState().playerOneScore, gameControllerTTT.getGameState().playerTwoScore); // See updateScoreDisplay below
                 endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
 
@@ -268,6 +267,25 @@ const displayControllerTTT = (function() {
                 endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
             };
+        };
+    };
+
+    // Function to update and animate score
+    const updateScoreDisplay = (playerOneScore, playerTwoScore) => {
+
+        if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerOne()) {
+            playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${playerOneScore}`; // Update score display
+            playerOneInfo.classList.add("player-score-update"); // Add animation class
+            setTimeout(() => {
+                playerOneInfo.classList.remove("player-score-update");
+                }, 300); // Matches the CSS transition duration
+        } else {
+            playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${playerTwoScore}`;
+            playerTwoInfo.classList.add("player-score-update");
+            setTimeout(() => {
+                playerOneInfo.classList.remove("player-score-update");
+                playerTwoInfo.classList.remove("player-score-update");
+                }, 300); // Matches the CSS transition duration
         };
     };
 
@@ -311,7 +329,7 @@ const displayControllerTTT = (function() {
         restartButton.addEventListener("click", handleRestartClick);
     };
 
-    return { handleStartClick, initEventListeners, handleGameButtonClick, handleNextRoundClick, handleRestartClick };
+    return { handleStartClick, initEventListeners, handleGameButtonClick, updateScoreDisplay, handleNextRoundClick, handleRestartClick };
 })();
 
 document.addEventListener("DOMContentLoaded", displayControllerTTT.initEventListeners);
