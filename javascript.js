@@ -34,6 +34,7 @@ const gameControllerTTT = (function() {
     const gameState = {
         "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
+        "roundNumber": 1,
         "isRoundOver": false,
         "whoStarts": playersTTT.getPlayerOne(), // To allow Player 2 to start next round if user wants to play again. See function nextRound below
         "playerOneScore": 0,
@@ -44,6 +45,7 @@ const gameControllerTTT = (function() {
     const startGame = function() { // Start a new game with default values
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
+        gameState.roundNumber = 1;
         gameState.isRoundOver = false;
         gameState.whoStarts = playersTTT.getPlayerOne();
         gameState.playerOneScore = 0;
@@ -51,7 +53,7 @@ const gameControllerTTT = (function() {
         playersTTT.getPlayerOne().marker = "X";
         playersTTT.getPlayerTwo().marker = "O";
         gameBoard.resetBoard();
-        console.log(`Game Starts! It is ${playersTTT.getPlayerOne().name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
+        console.log(`Game Starts! It is round ${gameState.roundNumber}, and ${playersTTT.getPlayerOne().name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
     };
 
@@ -145,11 +147,12 @@ const gameControllerTTT = (function() {
             playersTTT.getPlayerOne().marker = "X";
             playersTTT.getPlayerTwo().marker = "O";
         };
+        ++gameState.roundNumber; // Increment round number
         // Reset game logic
         gameState.turnNumber = 1;
         gameState.isRoundOver = false;
         gameBoard.resetBoard();
-        console.log(`Round Starts! It is ${playersTTT.getPlayerOne().name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
+        console.log(`Round ${gameState.roundNumber} starts! It is ${gameState.playerTurn.name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
     };
 
@@ -201,7 +204,7 @@ const displayControllerTTT = (function() {
         }, { once: true });
         resetBoardDisplay();
         gameControllerTTT.startGame();
-        gameStateDisplay.textContent = `${playersTTT.getPlayerOne().name}'s Turn`;
+        gameStateDisplay.textContent = `Round ${gameControllerTTT.getGameState().roundNumber}, ${playersTTT.getPlayerOne().name} Starts`;
         // Update names, score and icons in player info
         playerOneInfo.textContent = `${playersTTT.getPlayerOne().name}'s Score: ${gameControllerTTT.getGameState().playerOneScore}`;
         playerTwoInfo.textContent = `${playersTTT.getPlayerTwo().name}'s Score: ${gameControllerTTT.getGameState().playerTwoScore}`;
@@ -307,7 +310,7 @@ const displayControllerTTT = (function() {
         updatePlayerIcon();
         resetBoardDisplay();
         gameControllerTTT.nextRound();
-        gameStateDisplay.textContent = `${gameControllerTTT.getGameState().whoStarts.name} Starts First`;
+        gameStateDisplay.textContent = `Round ${gameControllerTTT.getGameState().roundNumber}, ${gameControllerTTT.getGameState().whoStarts.name} Starts`;
     };
 
     const handleRestartClick = function() {
