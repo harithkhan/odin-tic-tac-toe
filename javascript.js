@@ -34,7 +34,7 @@ const gameControllerTTT = (function() {
     const gameState = {
         "playerTurn": playersTTT.getPlayerOne(),
         "turnNumber": 1,
-        "isGameOver": false,
+        "isRoundOver": false,
         "whoStarts": playersTTT.getPlayerOne(), // To allow Player 2 to start next round if user wants to play again. See function nextRound below
         "playerOneScore": 0,
         "playerTwoScore": 0
@@ -44,7 +44,7 @@ const gameControllerTTT = (function() {
     const startGame = function() { // Start a new game with default values
         gameState.playerTurn = playersTTT.getPlayerOne();
         gameState.turnNumber = 1;
-        gameState.isGameOver = false;
+        gameState.isRoundOver = false;
         gameState.whoStarts = playersTTT.getPlayerOne();
         gameState.playerOneScore = 0;
         gameState.playerTwoScore = 0;
@@ -58,7 +58,7 @@ const gameControllerTTT = (function() {
     const playRound = function(position) {
 
         // Execute on all turns before the last turn (which is turn 9)
-        if (gameState.turnNumber < 9 && !gameState.isGameOver) { 
+        if (gameState.turnNumber < 9 && !gameState.isRoundOver) { 
             gameBoard.markBoard(position, gameState.playerTurn.marker);
             ++gameState.turnNumber;
             console.log(`${gameState.playerTurn.name} marked box ${position}.`);
@@ -66,7 +66,7 @@ const gameControllerTTT = (function() {
 
             if (checkForWin()) {
                 gameState.playerTurn === playersTTT.getPlayerOne() ? ++gameState.playerOneScore : ++gameState.playerTwoScore;
-                gameOver();
+                roundOver();
                 console.log(`${gameState.playerTurn.name} won the round! Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
             } else switchTurn();
 
@@ -78,13 +78,13 @@ const gameControllerTTT = (function() {
             
             // Execute on draw, since there is no win in the last turn, it is a draw
             if (!checkForWin()) {
-                gameOver();
+                roundOver();
                 console.log(`It's a draw. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
 
             // Execute on win    
             } else if (checkForWin()) {
                 gameState.playerTurn === playersTTT.getPlayerOne() ? ++gameState.playerOneScore : ++gameState.playerTwoScore;
-                gameOver();
+                roundOver();
                 console.log(`${gameState.playerTurn.name} won the round! Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}.`);
             };
         };
@@ -93,12 +93,12 @@ const gameControllerTTT = (function() {
     const switchTurn = function() {
 
         // Switch to player 2 after player 1 plays
-        if (!gameState.isGameOver && gameState.playerTurn === playersTTT.getPlayerOne()) { 
+        if (!gameState.isRoundOver && gameState.playerTurn === playersTTT.getPlayerOne()) { 
             gameState.playerTurn = playersTTT.getPlayerTwo();
             console.log(`It is ${playersTTT.getPlayerTwo().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         
         // Switch to player 1 after player 2 plays
-        } else if (!gameState.isGameOver && gameState.playerTurn === playersTTT.getPlayerTwo()) { 
+        } else if (!gameState.isRoundOver && gameState.playerTurn === playersTTT.getPlayerTwo()) { 
             gameState.playerTurn = playersTTT.getPlayerOne();
             console.log(`It is ${playersTTT.getPlayerOne().name}'s turn, type gameControllerTTT.playRound() to place your marker.`);
         };
@@ -129,7 +129,7 @@ const gameControllerTTT = (function() {
         return false;
     };
 
-    const gameOver = () => (gameState.isGameOver = true);
+    const roundOver = () => (gameState.isRoundOver = true);
 
     const nextRound = function() {
         // Switch whoStarts
@@ -147,7 +147,7 @@ const gameControllerTTT = (function() {
         };
         // Reset game logic
         gameState.turnNumber = 1;
-        gameState.isGameOver = false;
+        gameState.isRoundOver = false;
         gameBoard.resetBoard();
         console.log(`Round Starts! It is ${playersTTT.getPlayerOne().name}'s turn. Score is ${playersTTT.getPlayerOne().name}: ${gameState.playerOneScore}, ${playersTTT.getPlayerTwo().name}: ${gameState.playerTwoScore}. Type gameControllerTTT.playRound() to place your marker.`);
         console.log(gameBoard.showConsoleBoard());
@@ -209,13 +209,13 @@ const displayControllerTTT = (function() {
         const box = event.target;
         if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerOne() // To add player one's marker upon mouse enter
             && box.dataset.marked === "false"
-            && !gameControllerTTT.getGameState().isGameOver
+            && !gameControllerTTT.getGameState().isRoundOver
         ) {
             box.style.backgroundColor = blue;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
         } else if (gameControllerTTT.getGameState().playerTurn === playersTTT.getPlayerTwo() // To add player two's marker upon mouse enter
             && box.dataset.marked === "false"
-            && !gameControllerTTT.getGameState().isGameOver
+            && !gameControllerTTT.getGameState().isRoundOver
         ) {
             box.style.backgroundColor = red;
             box.textContent = gameControllerTTT.getGameState().playerTurn.marker;
@@ -224,7 +224,7 @@ const displayControllerTTT = (function() {
 
     const handleMouseLeave = function(event) { // To remove marker and bg color from game button when mouse leaves button
         const box = event.target;
-        if (box.textContent !== "" && box.dataset.marked === "false" && !gameControllerTTT.getGameState().isGameOver) {
+        if (box.textContent !== "" && box.dataset.marked === "false" && !gameControllerTTT.getGameState().isRoundOver) {
             box.style.backgroundColor = "white";
             box.textContent = "";
         };
@@ -243,19 +243,19 @@ const displayControllerTTT = (function() {
             event.target.textContent = marker;
 
             // Display that it is next player's turn after position marked if game is not over
-            if (!gameControllerTTT.getGameState().isGameOver) {
+            if (!gameControllerTTT.getGameState().isRoundOver) {
                 const nextPlayerName = gameControllerTTT.getGameState().playerTurn.name; // Get updated player name
                 gameStateDisplay.textContent = `${nextPlayerName}'s Turn`;
             
             // Display game winner and update score displays if game is over and there is winner
-            } else if (gameControllerTTT.getGameState().isGameOver && gameControllerTTT.checkForWin()) {
+            } else if (gameControllerTTT.getGameState().isRoundOver && gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Round Over! ${playerTurnName} Won!`;
                 displayControllerTTT.updateScoreDisplay(gameControllerTTT.getGameState().playerOneScore, gameControllerTTT.getGameState().playerTwoScore); // See updateScoreDisplay below
                 endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
 
             // Display game draw if game is over and there is no winner
-            } else if (gameControllerTTT.getGameState().isGameOver && !gameControllerTTT.checkForWin()) {
+            } else if (gameControllerTTT.getGameState().isRoundOver && !gameControllerTTT.checkForWin()) {
                 gameStateDisplay.textContent = `Round Over! It's a draw!`;
                 endGameButtonContainer.appendChild(restartButton);
                 endGameButtonContainer.appendChild(nextRoundButton);
